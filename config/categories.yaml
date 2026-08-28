@@ -1,0 +1,335 @@
+# Canonical product categories.
+# search_de: term typed into German-language store search boxes (Aldi, and Coop once it's back).
+# search_en: term used against Migros, whose /en/ site matches English terms far more
+#            reliably than German ones (confirmed by testing - "Sojadrink" happened to
+#            work, "Äpfel" returned zero results, "Apple" worked).
+# keywords_include: raw product name (lowercased) must contain at least one of these to count as a real match.
+# keywords_exclude: raw product name must NOT contain any of these (filters out ready-meals, unrelated hits, etc.).
+# off_search_term: fallback query against Open Food Facts when a store doesn't expose a barcode.
+# unit: "g", "ml", or "roll" - what price-per-unit is normalized to.
+# food: whether to run the Open Food Facts health-scoring step at all.
+# fresh_produce: whole/unprocessed fruit - skip the OFF lookup and assume a clean
+#                NOVA-1, zero-additive, zero-sat-fat profile rather than showing "unrated"
+#                (OFF has essentially no barcode/name coverage for loose fresh fruit).
+
+- id: soy_milk
+  name: Soy milk
+  search_de: Sojadrink
+  search_en: Soya Drink
+  keywords_include: [sojadrink, "soja drink", "soja-drink", "soya drink", "soya-drink", soymilk, soyamilk, "soy milk", sojamilch]
+  keywords_exclude: [joghurt, yogurt, dessert, pudding, sauce, sojaöl, mehl]
+  off_search_term: soy milk
+  off_category_tags: [soy-milk, soya-milk, plant-based-milk, plant-based-beverages, soy]
+  unit: ml
+  food: true
+
+- id: coconut_milk
+  name: Coconut milk
+  search_de: Kokosmilch
+  search_en: Coconut Milk
+  keywords_include: [kokosmilch, kokosnussmilch, "coconut milk", "coconut drink"]
+  keywords_exclude: [joghurt, yogurt, dessert, pudding, creme, ice cream, glace, smoothie, porridge, hipp, holle, babybio, squeeze, months, monate]
+  off_search_term: coconut milk
+  off_category_tags: [coconut-milk, coconut, plant-based-milk, plant-based-beverages]
+  unit: ml
+  food: true
+
+- id: tofu
+  name: Tofu
+  search_de: Tofu
+  search_en: Tofu
+  keywords_include: [tofu]
+  keywords_exclude: [curry, bowl, fertig, ready, soup, suppe, spice, gewürz, sausage, wurst, salad, salat, couscous]
+  off_search_term: tofu
+  off_category_tags: [tofu, meat-alternatives, meat-analogues]
+  unit: g
+  food: true
+
+- id: peanut_butter
+  name: Peanut butter
+  search_de: Erdnussbutter
+  search_en: Peanut Butter
+  keywords_include: [erdnussbutter, erdnussmus, peanut butter]
+  keywords_exclude: [bar, riegel, cups, protein, snickers]
+  off_search_term: peanut butter
+  off_category_tags: [peanut-butter, nut-butters, peanut, spreads]
+  unit: g
+  food: true
+
+- id: almond_butter
+  name: Almond butter
+  search_de: Mandelbutter
+  search_en: Almond Butter
+  keywords_include: [mandelbutter, mandelmus, almond butter]
+  keywords_exclude: [bar, riegel, protein]
+  off_search_term: almond butter
+  off_category_tags: [almond-butter, nut-butters, almond, spreads]
+  unit: g
+  food: true
+
+- id: greek_yogurt
+  name: Greek yoghurt
+  search_de: Griechisches Joghurt
+  search_en: Greek Yogurt
+  keywords_include: ["griechische art", "griechischer art", "griechische joghurt", "greek style", "greek yog"]
+  keywords_exclude: [olive, olivenöl, oliven]
+  off_search_term: greek yogurt
+  off_category_tags: [yogurt, yoghurt, fermented-milk, dairy]
+  unit: g
+  food: true
+
+- id: natural_yogurt
+  name: Natural yoghurt
+  search_de: Naturjoghurt
+  search_en: Natural Yogurt
+  keywords_include: [naturjoghurt, "natur joghurt", "natural yogurt", "natural yoghurt", naturejoghurt]
+  keywords_exclude: [griechisch, greek]
+  off_search_term: natural yogurt
+  off_category_tags: [yogurt, yoghurt, fermented-milk, dairy]
+  unit: g
+  food: true
+
+- id: hummus
+  name: Hummus
+  search_de: Hummus
+  search_en: Hummus
+  keywords_include: [hummus]
+  keywords_exclude: [chips, snack, wrap, bowl, sandwich, salat, salad, tahini]
+  off_search_term: hummus
+  off_category_tags: [hummus, chickpea, spreads, dips]
+  unit: g
+  food: true
+
+- id: parmigiano
+  name: Parmigiano Reggiano
+  search_de: Parmigiano Reggiano
+  search_en: Parmigiano Reggiano
+  keywords_include: [parmigiano]
+  keywords_exclude: []
+  off_search_term: parmigiano reggiano
+  off_category_tags: [parmigiano, cheese, hard-cheese]
+  unit: g
+  food: true
+
+- id: grana_padano
+  name: Grana Padano
+  search_de: Grana Padano
+  search_en: Grana Padano
+  keywords_include: [grana padano]
+  keywords_exclude: []
+  off_search_term: grana padano
+  off_category_tags: [grana, cheese, hard-cheese]
+  unit: g
+  food: true
+
+- id: mozzarella
+  name: Mozzarella
+  search_de: Mozzarella
+  search_en: Mozzarella
+  keywords_include: [mozzarella]
+  keywords_exclude: [pizza, lasagne, burger, sandwich, wrap, salat, salad, gratin, überbacken, gnocchi, ravioli, tortelloni, pancake, escalope, spaghetti, baguette, calzone, snackbox, filet, tasche, mezzaluna, caprese, knusper, months, monate, hipp, holle, babybio]
+  off_search_term: mozzarella
+  off_category_tags: [mozzarella, cheese]
+  unit: g
+  food: true
+
+- id: emmentaler
+  name: Emmentaler
+  search_de: Emmentaler
+  search_en: Emmental
+  keywords_include: [emmentaler, emmental]
+  keywords_exclude: [biscuit, cookie, kambly, sablés]
+  off_search_term: emmental
+  off_category_tags: [emmental, cheese, hard-cheese]
+  unit: g
+  food: true
+
+- id: quinoa
+  name: Quinoa
+  search_de: Quinoa
+  search_en: Quinoa
+  keywords_include: [quinoa]
+  keywords_exclude: [months, monate, porridge, cereal, puree, purée, squeeze, knusperscheiben, knusperknäcke, snack, bowl, penne, curry, bulgur, hipp, holle, babybio]
+  off_search_term: quinoa
+  off_category_tags: [quinoa, cereal, seeds]
+  unit: g
+  food: true
+
+- id: canned_black_beans
+  name: Canned black beans
+  search_de: Schwarze Bohnen
+  search_en: Black Beans
+  keywords_include: [schwarze bohnen, black beans]
+  keywords_exclude: []
+  off_search_term: black beans
+  off_category_tags: [beans, legumes, canned]
+  unit: g
+  food: true
+
+- id: canned_kidney_beans
+  name: Canned kidney beans
+  search_de: Kidneybohnen
+  search_en: Kidney Beans
+  keywords_include: [kidney]
+  keywords_exclude: []
+  off_search_term: kidney beans
+  off_category_tags: [kidney, beans, legumes, canned]
+  unit: g
+  food: true
+
+- id: frozen_fruits
+  name: Frozen fruits
+  search_de: Tiefkühl Früchte
+  search_en: Frozen Fruit
+  keywords_include: [beeren, waldbeeren, "fruit mix", "frozen fruit"]
+  keywords_exclude: [kuchen, joghurt, müesli, muesli, müsli, porridge, notizblöcke, flakes, riegel, snack, smoothie]
+  off_search_term: frozen fruit mix
+  off_category_tags: [frozen, berries, fruits]
+  unit: g
+  food: true
+
+- id: frozen_edamame
+  name: Frozen edamame
+  search_de: Edamame
+  search_en: Edamame
+  keywords_include: [edamame]
+  keywords_exclude: [bowl, salad, salat]
+  off_search_term: edamame
+  off_category_tags: [edamame, soy, legumes, frozen]
+  unit: g
+  food: true
+
+- id: bananas
+  name: Bananas
+  search_de: Bananen
+  search_en: Banana
+  keywords_include: [banane, banana]
+  keywords_exclude: [chips, months, monate, porridge, puree, purée, squeeze, hipp, holle, babybio, fruchtbar, fruchtsnack, bar, riegel, biscuit, cookie, keks, shampoo, "hair food", "setting powder", makeup, "ice cream", "ice lolly", smoothie, quark, yoghurt, yogurt, joghurt, pudding, drink, milkshake, bread, brot, strudel, split, wrap, sandwich, chocolate, schoko, peppers, boat, playmobil]
+  off_search_term: banana
+  off_category_tags: [banana, fruits]
+  unit: g
+  food: true
+  fresh_produce: true
+
+- id: apples
+  name: Apples
+  search_de: Äpfel
+  search_en: Apple
+  keywords_include: [apfel, äpfel, apple]
+  keywords_exclude: [saft, juice, kuchen, most, spritzer, tasche, slicer, rings, ring, dried, getrocknet, gummi, trolli, fruchtsnack]
+  off_search_term: apple
+  off_category_tags: [apple, fruits]
+  unit: g
+  food: true
+  fresh_produce: true
+
+- id: grapes
+  name: Grapes
+  search_de: Trauben
+  search_en: Grapes
+  keywords_include: [trauben, grape]
+  keywords_exclude: [saft, juice, wein, wine, grapefruit, seed oil, shandy, shower, soap, seife, cleaner, reiniger, detergent, waschmittel, chocolate, schoko, syrup, sirup, molasses, tea, tee, water, wasser, lemonade, limonade, candy, bonbon, coaties, nut, hazelnuts]
+  off_search_term: grapes
+  off_category_tags: [grape, fruits]
+  unit: g
+  food: true
+  fresh_produce: true
+
+- id: muesli
+  name: Müsli
+  search_de: Müesli
+  search_en: Muesli
+  keywords_include: [müesli, muesli, müsli]
+  keywords_exclude: [riegel, bar, joghurt, yogurt, yoghurt, drink, milch, milk, quark, spoon, löffel, container, box, months, monate, squeeze, pouch, hipp, holle, porridge]
+  off_search_term: muesli
+  off_category_tags: [muesli, breakfast-cereals, cereal, granola, cereal-flakes]
+  unit: g
+  food: true
+
+- id: oats
+  name: Oats
+  search_de: Haferflocken
+  search_en: Rolled Oats
+  keywords_include: [haferflocken, "rolled oats", "oat flakes", "hafer flocken"]
+  keywords_exclude: [drink, milch, milk, riegel, bar, joghurt, yogurt, porridge, keks, cookie, gebäck, bun, buns]
+  off_search_term: rolled oats
+  off_category_tags: [oat, cereal, flakes]
+  unit: g
+  food: true
+
+- id: vegan_kebab
+  name: Vegan kebab
+  search_de: Kebab vegan
+  search_en: Vegan Kebab
+  keywords_include: [kebab]
+  keywords_exclude: [sauce, wrap, brot, chicken, huhn, poulet, hähnchen, fleisch, rind, beef]
+  off_search_term: vegan kebab
+  off_category_tags: [meat-alternatives, meat-analogues, kebab]
+  unit: g
+  food: true
+
+- id: falafel
+  name: Falafel
+  search_de: Falafel
+  search_en: Falafel
+  keywords_include: [falafel]
+  keywords_exclude: [wrap, sandwich, salat, salad, bowl, sauce]
+  off_search_term: falafel
+  off_category_tags: [falafel, chickpea, legumes]
+  unit: g
+  food: true
+
+- id: corn_waffles
+  name: Corn waffles
+  search_de: Maiswaffeln
+  search_en: Corn Cakes
+  keywords_include: [maiswaffel, "corn cake", "corn waffle"]
+  keywords_exclude: []
+  off_search_term: corn cakes
+  off_category_tags: [cakes, corn, rice-cakes, crispbread]
+  unit: g
+  food: true
+
+- id: chia_seeds
+  name: Chia seeds
+  search_de: Chia-Samen
+  search_en: Chia Seeds
+  keywords_include: ["chia samen", chiasamen, "chia seed", "chia-samen"]
+  keywords_exclude: [pudding, drink, joghurt, yogurt, riegel, bar, müesli, muesli, müsli, porridge, pâté, pate, adult, kitten, hund, katze, dog, cat]
+  off_search_term: chia seeds
+  off_category_tags: [chia, seeds]
+  unit: g
+  food: true
+
+- id: rye_bread
+  name: Rye wholegrain bread
+  search_de: Roggenvollkornbrot
+  search_en: Rye Bread
+  keywords_include: [roggenvollkornbrot, roggenbrot, "rye bread", "rye wholegrain"]
+  keywords_exclude: [cracker, knäcke, chips, brötli, brötchen]
+  off_search_term: rye bread
+  off_category_tags: [bread, rye]
+  unit: g
+  food: true
+
+- id: udon_noodles
+  name: Udon noodles
+  search_de: Udon-Nudeln
+  search_en: Udon Noodles
+  keywords_include: [udon]
+  keywords_exclude: [suppe, soup, fertiggericht]
+  off_search_term: udon noodles
+  off_category_tags: [udon, noodles, pasta]
+  unit: g
+  food: true
+
+- id: toilet_paper
+  name: Toilet paper
+  search_de: Toilettenpapier
+  search_en: Toilet Paper
+  keywords_include: [toilettenpapier, wc-papier, toilet paper, toilet roll, toilet tissue]
+  keywords_exclude: [feucht, wet]
+  off_search_term: null
+  off_category_tags: []
+  unit: roll
+  food: false
