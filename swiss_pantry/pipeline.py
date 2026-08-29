@@ -12,7 +12,7 @@ from playwright.sync_api import sync_playwright
 from swiss_pantry.health import off_client, scoring
 from swiss_pantry.health.off_client import HealthFacts
 from swiss_pantry.matching.categorize import Category, load_categories
-from swiss_pantry.pricing.normalize import price_per_unit
+from swiss_pantry.pricing.normalize import price_per_unit, units_compatible
 from swiss_pantry.scrapers.aldi import AldiScraper
 from swiss_pantry.scrapers.denner import DennerScraper
 from swiss_pantry.scrapers.lidl import LidlScraper
@@ -33,7 +33,14 @@ SCRAPERS = [MigrosScraper(), AldiScraper(), DennerScraper(), LidlScraper()]
 
 
 def enrich(raw: RawProduct, category: Category, off_http: httpx.Client, off_cache: dict) -> ScoredProduct:
-    unit = price_per_unit(raw.price_chf, raw.package_qty, raw.package_unit)
+    # Only price per unit when the pack size is in the unit this category is
+    # compared in. A listing given as "1 Stk." tells us nothing about millilitres,
+    # and computing anyway would print a number under the wrong column header
+    # (a food colouring priced per piece, displayed as CHF/100ml).
+    if units_compatible(raw.package_unit, category.unit):
+        unit = price_per_unit(raw.price_chf, raw.package_qty, raw.package_unit)
+    else:
+        unit = None
 
     facts = None
     if category.fresh_produce:

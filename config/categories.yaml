@@ -323,6 +323,57 @@
   unit: g
   food: true
 
+- id: food_coloring
+  name: Food colouring
+  search_de: Lebensmittelfarbe
+  search_en: Food Colouring
+  keywords_include: [lebensmittelfarbe, "food colouring", "food coloring", speisefarbe]
+  keywords_exclude: [haarfarbe, textil, stift, pen, ostern, egg dye]
+  off_search_term: food colouring
+  off_category_tags: [colour, color, additives, food-colouring]
+  # Sold both by weight and as single bottles ("1 Stk."); grams is the unit the
+  # ones with a real pack size use, and piece-priced items are left uncompared.
+  unit: g
+  food: true
+
+# Baking soda is sodium bicarbonate (Natron) - NOT Backpulver/baking powder,
+# which is a different product and gets excluded explicitly.
+- id: baking_soda
+  name: Baking soda
+  search_de: Natron
+  search_en: Baking Soda
+  keywords_include: [natron, "baking soda", bicarbonat, "soda bicarbonate"]
+  keywords_exclude: [backpulver, "baking powder", vanille, hirsch]
+  off_search_term: baking soda
+  off_category_tags: [baking-soda, bicarbonate, raising-agents, salt]
+  unit: g
+  food: true
+
+# Swiss supermarkets barely stock plain distilled white vinegar as a food -
+# the food aisle equivalent is white wine vinegar / condimento bianco, while
+# distilled vinegar is sold as a cleaning product. They are tracked separately.
+- id: white_vinegar
+  name: White vinegar (food)
+  search_de: Weissweinessig
+  search_en: White Vinegar
+  keywords_include: [weissweinessig, "white wine vinegar", "condimento bianco", "weisser essig", kristallessig, branntweinessig]
+  keywords_exclude: [balsamico, balsamic, apfelessig, "apple cider", reisessig, dressing, sauce, cornichon, gurken, senf, mustard]
+  off_search_term: white wine vinegar
+  off_category_tags: [vinegar, vinegars, condiments]
+  unit: ml
+  food: true
+
+- id: cleaning_vinegar
+  name: Cleaning vinegar
+  search_de: Essigreiniger
+  search_en: Vinegar Cleaner
+  keywords_include: [essigreiniger, putzessig, "essig reiniger", "vinegar cleaner", essigessenz]
+  keywords_exclude: [spray, wc, toilette, bad, küche]
+  off_search_term: null
+  off_category_tags: []
+  unit: ml
+  food: false
+
 - id: toilet_paper
   name: Toilet paper
   search_de: Toilettenpapier
