@@ -1,0 +1,2582 @@
+{
+  "en:e100": {
+    "name": "E100 - Curcumin",
+    "risk": "high"
+  },
+  "en:e1000": {
+    "name": "E1000 - Cholic acid",
+    "risk": "low"
+  },
+  "en:e1001": {
+    "name": "E1001 - Choline salt",
+    "risk": "low"
+  },
+  "en:e101": {
+    "name": "E101 - Riboflavin",
+    "risk": "low"
+  },
+  "en:e101a": {
+    "name": "E101a - E101a food additive",
+    "risk": "low"
+  },
+  "en:e101i": {
+    "name": "E101i - Riboflavin",
+    "risk": "low"
+  },
+  "en:e101ii": {
+    "name": "E101ii - Riboflavin-5′-phosphate",
+    "risk": "low"
+  },
+  "en:e102": {
+    "name": "E102 - Tartrazine",
+    "risk": "low"
+  },
+  "en:e103": {
+    "name": "E103 - Alkannin",
+    "risk": "low"
+  },
+  "en:e104": {
+    "name": "E104 - Quinoline yellow",
+    "risk": "high"
+  },
+  "en:e105": {
+    "name": "E105 - Fast Yellow AB",
+    "risk": "low"
+  },
+  "en:e106": {
+    "name": "E106 - flavin mononucleotide",
+    "risk": "low"
+  },
+  "en:e107": {
+    "name": "E107 - Yellow 2G",
+    "risk": "low"
+  },
+  "en:e110": {
+    "name": "E110 - Sunset yellow FCF",
+    "risk": "high"
+  },
+  "en:e1100": {
+    "name": "E1100 - Alpha-Amylase",
+    "risk": "low"
+  },
+  "en:e1101": {
+    "name": "E1101 - Protease",
+    "risk": "low"
+  },
+  "en:e1102": {
+    "name": "E1102 - Glucose oxidase",
+    "risk": "low"
+  },
+  "en:e1103": {
+    "name": "E1103 - Invertase",
+    "risk": "low"
+  },
+  "en:e1104": {
+    "name": "E1104 - lipase",
+    "risk": "low"
+  },
+  "en:e1105": {
+    "name": "E1105 - Lysozyme",
+    "risk": "low"
+  },
+  "en:e111": {
+    "name": "E111 - Orange GGN",
+    "risk": "low"
+  },
+  "en:e120": {
+    "name": "E120 - Cochineal",
+    "risk": "low"
+  },
+  "en:e1200": {
+    "name": "E1200 - Polydextrose",
+    "risk": "low"
+  },
+  "en:e1201": {
+    "name": "E1201 - Polyvinylpyrrolidone",
+    "risk": "low"
+  },
+  "en:e1202": {
+    "name": "E1202 - Polyvinylpolypyrrolidone",
+    "risk": "low"
+  },
+  "en:e1203": {
+    "name": "E1203 - Polyvinyl alcohol",
+    "risk": "low"
+  },
+  "en:e1204": {
+    "name": "E1204 - Pullulan",
+    "risk": "low"
+  },
+  "en:e1205": {
+    "name": "E1205 - Basic methacrylate copolymer",
+    "risk": "low"
+  },
+  "en:e1206": {
+    "name": "E1206 - Neutral methacrylate copolymer",
+    "risk": "low"
+  },
+  "en:e1207": {
+    "name": "E1207 - Anionic methacrylate copolymer",
+    "risk": "low"
+  },
+  "en:e1208": {
+    "name": "E1208 - Polyvinylpyrrolidone-vinyl acetate copolymer",
+    "risk": "low"
+  },
+  "en:e1209": {
+    "name": "E1209 - Polyvinyl alcohol-polyethylene glycol-graft-co-polymer",
+    "risk": "low"
+  },
+  "en:e121": {
+    "name": "E121 - Citrus Red 2",
+    "risk": "low"
+  },
+  "en:e1210": {
+    "name": "E1210 - Carbomer",
+    "risk": "low"
+  },
+  "en:e122": {
+    "name": "E122 - Azorubine",
+    "risk": "low"
+  },
+  "en:e123": {
+    "name": "E123 - Amaranth",
+    "risk": "low"
+  },
+  "en:e124": {
+    "name": "E124 - Ponceau 4r",
+    "risk": "high"
+  },
+  "en:e125": {
+    "name": "E125 - Scarlet GN",
+    "risk": "low"
+  },
+  "en:e127": {
+    "name": "E127 - Erythrosine",
+    "risk": "low"
+  },
+  "en:e128": {
+    "name": "E128 - Red 2G",
+    "risk": "low"
+  },
+  "en:e129": {
+    "name": "E129 - Allura red",
+    "risk": "high"
+  },
+  "en:e130": {
+    "name": "E130 - Indanthrene blue RS",
+    "risk": "low"
+  },
+  "en:e131": {
+    "name": "E131 - Patent blue v",
+    "risk": "moderate"
+  },
+  "en:e132": {
+    "name": "E132 - Indigotine",
+    "risk": "low"
+  },
+  "en:e133": {
+    "name": "E133 - Brilliant blue FCF",
+    "risk": "moderate"
+  },
+  "en:e140": {
+    "name": "E140 - Chlorophylls and Chlorophyllins",
+    "risk": "low"
+  },
+  "en:e1400": {
+    "name": "E1400 - Dextrin",
+    "risk": "low"
+  },
+  "en:e1401": {
+    "name": "E1401 - Acid-treated modified starch",
+    "risk": "low"
+  },
+  "en:e1402": {
+    "name": "E1402 - Alkaline modified starch",
+    "risk": "low"
+  },
+  "en:e1403": {
+    "name": "E1403 - Bleached starch",
+    "risk": "low"
+  },
+  "en:e1404": {
+    "name": "E1404 - Oxidised starch",
+    "risk": "low"
+  },
+  "en:e1405": {
+    "name": "E1405 - Enzyme treated starch",
+    "risk": "low"
+  },
+  "en:e140i": {
+    "name": "E140i - Chlorophylls",
+    "risk": "low"
+  },
+  "en:e140ii": {
+    "name": "E140ii - Chlorophyllins",
+    "risk": "low"
+  },
+  "en:e141": {
+    "name": "E141 - Copper complexes of chlorophylls and chlorophyllins",
+    "risk": "high"
+  },
+  "en:e1410": {
+    "name": "E1410 - Monostarch phosphate",
+    "risk": "low"
+  },
+  "en:e1411": {
+    "name": "E1411 - Distarch glycerol",
+    "risk": "low"
+  },
+  "en:e1412": {
+    "name": "E1412 - Distarch phosphate",
+    "risk": "low"
+  },
+  "en:e1413": {
+    "name": "E1413 - Phosphated distarch phosphate",
+    "risk": "low"
+  },
+  "en:e1414": {
+    "name": "E1414 - Acetylated distarch phosphate",
+    "risk": "low"
+  },
+  "en:e141i": {
+    "name": "E141i - Copper complexes of chlorophylls",
+    "risk": "high"
+  },
+  "en:e141ii": {
+    "name": "E141ii - Copper complexes of chlorophyllins",
+    "risk": "high"
+  },
+  "en:e142": {
+    "name": "E142 - Green s",
+    "risk": "moderate"
+  },
+  "en:e1420": {
+    "name": "E1420 - Acetylated starch",
+    "risk": "low"
+  },
+  "en:e1421": {
+    "name": "E1421 - Acetylated starch",
+    "risk": "low"
+  },
+  "en:e1422": {
+    "name": "E1422 - Acetylated distarch adipate",
+    "risk": "low"
+  },
+  "en:e1423": {
+    "name": "E1423 - Acetylated distarch glycerol",
+    "risk": "low"
+  },
+  "en:e143": {
+    "name": "E143 - Fast Green FCF",
+    "risk": "low"
+  },
+  "en:e1430": {
+    "name": "E1430 - Distarch glycerine",
+    "risk": "low"
+  },
+  "en:e1440": {
+    "name": "E1440 - Hydroxypropyl starch",
+    "risk": "low"
+  },
+  "en:e1441": {
+    "name": "E1441 - Hydroxy propyl distarch glycerine",
+    "risk": "low"
+  },
+  "en:e1442": {
+    "name": "E1442 - Hydroxypropyl distarch phosphate",
+    "risk": "low"
+  },
+  "en:e1443": {
+    "name": "E1443 - Hydroxy propyl distarch glycerol",
+    "risk": "low"
+  },
+  "en:e1450": {
+    "name": "E1450 - Starch sodium octenyl succinate",
+    "risk": "low"
+  },
+  "en:e1451": {
+    "name": "E1451 - Acetylated oxidised starch",
+    "risk": "low"
+  },
+  "en:e1452": {
+    "name": "E1452 - Starch aluminium octenyl succinate",
+    "risk": "low"
+  },
+  "en:e14xx": {
+    "name": "E14XX - Modified Starch",
+    "risk": "low"
+  },
+  "en:e150": {
+    "name": "E150 - Caramel",
+    "risk": "low"
+  },
+  "en:e1503": {
+    "name": "E1503 - Castor oil",
+    "risk": "low"
+  },
+  "en:e1504": {
+    "name": "E1504 - ethyl acetate",
+    "risk": "low"
+  },
+  "en:e1505": {
+    "name": "E1505 - Triethyl citrate",
+    "risk": "low"
+  },
+  "en:e150a": {
+    "name": "E150a - Plain caramel",
+    "risk": "high"
+  },
+  "en:e150b": {
+    "name": "E150b - Caustic sulphite caramel",
+    "risk": "high"
+  },
+  "en:e150c": {
+    "name": "E150c - Ammonia caramel",
+    "risk": "high"
+  },
+  "en:e150d": {
+    "name": "E150d - Sulphite ammonia caramel",
+    "risk": "high"
+  },
+  "en:e151": {
+    "name": "E151 - Brilliant black bn",
+    "risk": "low"
+  },
+  "en:e1510": {
+    "name": "E1510 - Ethanol",
+    "risk": "low"
+  },
+  "en:e1517": {
+    "name": "E1517 - Glyceryl diacetate",
+    "risk": "low"
+  },
+  "en:e1518": {
+    "name": "E1518 - Glyceryl triacetate",
+    "risk": "low"
+  },
+  "en:e1519": {
+    "name": "E1519 - Benzyl alcohol",
+    "risk": "low"
+  },
+  "en:e152": {
+    "name": "E152 - Black 7984",
+    "risk": "low"
+  },
+  "en:e1520": {
+    "name": "E1520 - Propylene Glycol",
+    "risk": "low"
+  },
+  "en:e1521": {
+    "name": "E1521 - Polyethylene glycol",
+    "risk": "low"
+  },
+  "en:e153": {
+    "name": "E153 - Vegetable carbon",
+    "risk": "low"
+  },
+  "en:e154": {
+    "name": "E154 - Brown FK",
+    "risk": "low"
+  },
+  "en:e155": {
+    "name": "E155 - Brown ht",
+    "risk": "high"
+  },
+  "en:e15x": {
+    "name": "E15x - E15x food additive",
+    "risk": "low"
+  },
+  "en:e160": {
+    "name": "E160 - Carotenoids",
+    "risk": "low"
+  },
+  "en:e160a": {
+    "name": "E160a - carotene",
+    "risk": "low"
+  },
+  "en:e160ai": {
+    "name": "E160ai - Beta-carotene",
+    "risk": "high"
+  },
+  "en:e160aii": {
+    "name": "E160aii - Plant carotenes",
+    "risk": "high"
+  },
+  "en:e160aiii": {
+    "name": "E160aiii - Beta-carotene from blakeslea trispora",
+    "risk": "low"
+  },
+  "en:e160aiv": {
+    "name": "E160aiv - Algal carotenes",
+    "risk": "low"
+  },
+  "en:e160b": {
+    "name": "E160b - Annatto",
+    "risk": "high"
+  },
+  "en:e160bi": {
+    "name": "E160bi - Annatto bixin",
+    "risk": "low"
+  },
+  "en:e160bii": {
+    "name": "E160bii - Annatto norbixin",
+    "risk": "low"
+  },
+  "en:e160c": {
+    "name": "E160c - Paprika extract",
+    "risk": "low"
+  },
+  "en:e160d": {
+    "name": "E160d - Lycopene",
+    "risk": "low"
+  },
+  "en:e160e": {
+    "name": "E160e - Beta-apo-8′-carotenal (c30)",
+    "risk": "high"
+  },
+  "en:e160f": {
+    "name": "E160f - Ethyl ester of beta-apo-8'-carotenic acid (C 30)",
+    "risk": "high"
+  },
+  "en:e161": {
+    "name": "E161 - Xanthophylls",
+    "risk": "low"
+  },
+  "en:e161a": {
+    "name": "E161a - Flavoxanthin",
+    "risk": "low"
+  },
+  "en:e161b": {
+    "name": "E161b - Lutein",
+    "risk": "high"
+  },
+  "en:e161c": {
+    "name": "E161c - Cryptoaxanthin",
+    "risk": "low"
+  },
+  "en:e161d": {
+    "name": "E161d - Rubixanthin",
+    "risk": "low"
+  },
+  "en:e161e": {
+    "name": "E161e - Violaxanthin",
+    "risk": "low"
+  },
+  "en:e161f": {
+    "name": "E161f - Rhodoxanthin",
+    "risk": "low"
+  },
+  "en:e161g": {
+    "name": "E161g - Canthaxanthin",
+    "risk": "low"
+  },
+  "en:e161h": {
+    "name": "E161h - Zeaxanthin",
+    "risk": "low"
+  },
+  "en:e161i": {
+    "name": "E161i - Citranaxanthin",
+    "risk": "low"
+  },
+  "en:e161j": {
+    "name": "E161j - Astaxanthin",
+    "risk": "low"
+  },
+  "en:e162": {
+    "name": "E162 - Beetroot red",
+    "risk": "low"
+  },
+  "en:e163": {
+    "name": "E163 - Anthocyanins",
+    "risk": "low"
+  },
+  "en:e163a": {
+    "name": "E163a - Cyanidin",
+    "risk": "low"
+  },
+  "en:e163b": {
+    "name": "E163b - Delphinidin",
+    "risk": "low"
+  },
+  "en:e163c": {
+    "name": "E163c - Malvidin",
+    "risk": "low"
+  },
+  "en:e163d": {
+    "name": "E163d - Pelargonidin",
+    "risk": "low"
+  },
+  "en:e163e": {
+    "name": "E163e - Peonidin",
+    "risk": "low"
+  },
+  "en:e163f": {
+    "name": "E163f - Petunidin",
+    "risk": "low"
+  },
+  "en:e164": {
+    "name": "E164 - saffron",
+    "risk": "low"
+  },
+  "en:e165": {
+    "name": "E165 - Gardenia Blue",
+    "risk": "low"
+  },
+  "en:e166": {
+    "name": "E166 - Sandalwood",
+    "risk": "low"
+  },
+  "en:e170": {
+    "name": "E170 - Calcium carbonates",
+    "risk": "high"
+  },
+  "en:e170i": {
+    "name": "E170i - Calcium carbonate",
+    "risk": "low"
+  },
+  "en:e170ii": {
+    "name": "E170ii - Calcium hydrogen carbonate",
+    "risk": "low"
+  },
+  "en:e171": {
+    "name": "E171 - Titanium dioxide",
+    "risk": "high"
+  },
+  "en:e172": {
+    "name": "E172 - Iron oxides and iron hydroxides",
+    "risk": "high"
+  },
+  "en:e172i": {
+    "name": "E172i - Black iron oxide",
+    "risk": "low"
+  },
+  "en:e172ii": {
+    "name": "E172ii - Red iron oxide",
+    "risk": "low"
+  },
+  "en:e172iii": {
+    "name": "E172iii - Yellow iron oxide",
+    "risk": "low"
+  },
+  "en:e173": {
+    "name": "E173 - Aluminium",
+    "risk": "low"
+  },
+  "en:e174": {
+    "name": "E174 - Silver",
+    "risk": "high"
+  },
+  "en:e175": {
+    "name": "E175 - Gold",
+    "risk": "low"
+  },
+  "en:e180": {
+    "name": "E180 - Litholrubine bk",
+    "risk": "high"
+  },
+  "en:e181": {
+    "name": "E181 - Tannin",
+    "risk": "low"
+  },
+  "en:e182": {
+    "name": "E182 - Orcein",
+    "risk": "low"
+  },
+  "en:e200": {
+    "name": "E200 - Sorbic acid",
+    "risk": "high"
+  },
+  "en:e201": {
+    "name": "E201 - Sodium sorbate",
+    "risk": "low"
+  },
+  "en:e202": {
+    "name": "E202 - Potassium sorbate",
+    "risk": "high"
+  },
+  "en:e203": {
+    "name": "E203 - Calcium sorbate",
+    "risk": "low"
+  },
+  "en:e209": {
+    "name": "E209 - Heptylparaben",
+    "risk": "low"
+  },
+  "en:e210": {
+    "name": "E210 - Benzoic acid",
+    "risk": "high"
+  },
+  "en:e211": {
+    "name": "E211 - Sodium benzoate",
+    "risk": "high"
+  },
+  "en:e212": {
+    "name": "E212 - Potassium benzoate",
+    "risk": "high"
+  },
+  "en:e213": {
+    "name": "E213 - Calcium benzoate",
+    "risk": "high"
+  },
+  "en:e214": {
+    "name": "E214 - Ethyl p-hydroxybenzoate",
+    "risk": "low"
+  },
+  "en:e215": {
+    "name": "E215 - Sodium ethyl p-hydroxybenzoate",
+    "risk": "low"
+  },
+  "en:e216": {
+    "name": "E216 - Propyl para-hydroxybenzoate",
+    "risk": "low"
+  },
+  "en:e217": {
+    "name": "E217 - Sodium propyl para-hydroxybenzoate",
+    "risk": "low"
+  },
+  "en:e218": {
+    "name": "E218 - Methyl p-hydroxybenzoate",
+    "risk": "low"
+  },
+  "en:e219": {
+    "name": "E219 - Sodium methyl p-hydroxybenzoate",
+    "risk": "low"
+  },
+  "en:e220": {
+    "name": "E220 - Sulphur dioxide",
+    "risk": "high"
+  },
+  "en:e221": {
+    "name": "E221 - Sodium sulphite",
+    "risk": "high"
+  },
+  "en:e222": {
+    "name": "E222 - Sodium bisulphite",
+    "risk": "high"
+  },
+  "en:e223": {
+    "name": "E223 - Sodium metabisulphite",
+    "risk": "high"
+  },
+  "en:e224": {
+    "name": "E224 - Potassium metabisulphite",
+    "risk": "high"
+  },
+  "en:e225": {
+    "name": "E225 - Calcium Disulphite",
+    "risk": "high"
+  },
+  "en:e226": {
+    "name": "E226 - Calcium sulphite",
+    "risk": "high"
+  },
+  "en:e227": {
+    "name": "E227 - Calcium bisulphite",
+    "risk": "high"
+  },
+  "en:e228": {
+    "name": "E228 - Potassium bisulphite",
+    "risk": "high"
+  },
+  "en:e230": {
+    "name": "E230 - Biphenyl",
+    "risk": "low"
+  },
+  "en:e231": {
+    "name": "E231 - Orthophenyl phenol",
+    "risk": "low"
+  },
+  "en:e232": {
+    "name": "E232 - Sodium orthophenyl phenol",
+    "risk": "low"
+  },
+  "en:e233": {
+    "name": "E233 - Thiabendazole",
+    "risk": "low"
+  },
+  "en:e234": {
+    "name": "E234 - Nisin",
+    "risk": "low"
+  },
+  "en:e235": {
+    "name": "E235 - Natamycin",
+    "risk": "low"
+  },
+  "en:e236": {
+    "name": "E236 - Formic acid",
+    "risk": "low"
+  },
+  "en:e237": {
+    "name": "E237 - Sodium formiate",
+    "risk": "low"
+  },
+  "en:e238": {
+    "name": "E238 - Calcium formiate",
+    "risk": "low"
+  },
+  "en:e239": {
+    "name": "E239 - Hexamethylene tetramine",
+    "risk": "low"
+  },
+  "en:e240": {
+    "name": "E240 - Formaldehyde",
+    "risk": "low"
+  },
+  "en:e241": {
+    "name": "E241 - Gum Guaicum",
+    "risk": "low"
+  },
+  "en:e242": {
+    "name": "E242 - Dimethyl dicarbonate",
+    "risk": "low"
+  },
+  "en:e243": {
+    "name": "E243 - Ethyl lauroyl arginate",
+    "risk": "high"
+  },
+  "en:e246": {
+    "name": "E246 - Glycolipids",
+    "risk": "low"
+  },
+  "en:e249": {
+    "name": "E249 - Potassium nitrite",
+    "risk": "high"
+  },
+  "en:e250": {
+    "name": "E250 - Sodium nitrite",
+    "risk": "high"
+  },
+  "en:e251": {
+    "name": "E251 - Sodium nitrate",
+    "risk": "high"
+  },
+  "en:e252": {
+    "name": "E252 - Potassium nitrate",
+    "risk": "high"
+  },
+  "en:e260": {
+    "name": "E260 - Acetic acid",
+    "risk": "low"
+  },
+  "en:e261": {
+    "name": "E261 - Potassium acetate",
+    "risk": "low"
+  },
+  "en:e262": {
+    "name": "E262 - Sodium acetates",
+    "risk": "low"
+  },
+  "en:e262i": {
+    "name": "E262i - Sodium acetate",
+    "risk": "low"
+  },
+  "en:e262ii": {
+    "name": "E262ii - Sodium diacetate",
+    "risk": "low"
+  },
+  "en:e263": {
+    "name": "E263 - Calcium acetate",
+    "risk": "low"
+  },
+  "en:e264": {
+    "name": "E264 - Ammonium acetate",
+    "risk": "low"
+  },
+  "en:e265": {
+    "name": "E265 - Dehydroacetic acid",
+    "risk": "low"
+  },
+  "en:e266": {
+    "name": "E266 - Sodium dehydroacetate",
+    "risk": "low"
+  },
+  "en:e267": {
+    "name": "E267 - Buffered vinegar",
+    "risk": "low"
+  },
+  "en:e270": {
+    "name": "E270 - Lactic acid",
+    "risk": "low"
+  },
+  "en:e280": {
+    "name": "E280 - Propionic acid",
+    "risk": "low"
+  },
+  "en:e281": {
+    "name": "E281 - Sodium propionate",
+    "risk": "low"
+  },
+  "en:e282": {
+    "name": "E282 - calcium propionate",
+    "risk": "low"
+  },
+  "en:e283": {
+    "name": "E283 - Potassium propionate",
+    "risk": "low"
+  },
+  "en:e284": {
+    "name": "E284 - Boric acid",
+    "risk": "low"
+  },
+  "en:e285": {
+    "name": "E285 - Sodium tetraborate (borax)",
+    "risk": "low"
+  },
+  "en:e290": {
+    "name": "E290 - Carbon dioxide",
+    "risk": "low"
+  },
+  "en:e296": {
+    "name": "E296 - Malic acid",
+    "risk": "low"
+  },
+  "en:e297": {
+    "name": "E297 - Fumaric acid",
+    "risk": "low"
+  },
+  "en:e300": {
+    "name": "E300 - Ascorbic acid",
+    "risk": "low"
+  },
+  "en:e301": {
+    "name": "E301 - Sodium ascorbate",
+    "risk": "low"
+  },
+  "en:e302": {
+    "name": "E302 - Calcium ascorbate",
+    "risk": "low"
+  },
+  "en:e303": {
+    "name": "E303 - Potassium ascorbate",
+    "risk": "low"
+  },
+  "en:e304": {
+    "name": "E304 - Fatty acid esters of ascorbic acid",
+    "risk": "low"
+  },
+  "en:e304i": {
+    "name": "E304i - Ascorbyl palmitate",
+    "risk": "low"
+  },
+  "en:e304ii": {
+    "name": "E304ii - Ascorbyl stearate",
+    "risk": "low"
+  },
+  "en:e306": {
+    "name": "E306 - Tocopherol-rich extract",
+    "risk": "low"
+  },
+  "en:e307": {
+    "name": "E307 - Alpha-tocopherol",
+    "risk": "low"
+  },
+  "en:e307a": {
+    "name": "E307a - D-Alpha-tocopherol",
+    "risk": "low"
+  },
+  "en:e307b": {
+    "name": "E307b - concentrated tocopherol",
+    "risk": "low"
+  },
+  "en:e307c": {
+    "name": "E307c - DL-Alpha-tocopherol",
+    "risk": "low"
+  },
+  "en:e308": {
+    "name": "E308 - Gamme-tocopherol",
+    "risk": "low"
+  },
+  "en:e309": {
+    "name": "E309 - Delta-tocopherol",
+    "risk": "low"
+  },
+  "en:e310": {
+    "name": "E310 - Propyl gallate",
+    "risk": "low"
+  },
+  "en:e311": {
+    "name": "E311 - Octyl gallate",
+    "risk": "low"
+  },
+  "en:e312": {
+    "name": "E312 - Dodecyl gallate",
+    "risk": "low"
+  },
+  "en:e313": {
+    "name": "E313 - Ethyl gallate",
+    "risk": "low"
+  },
+  "en:e314": {
+    "name": "E314 - Guaiacum",
+    "risk": "low"
+  },
+  "en:e315": {
+    "name": "E315 - Erythorbic acid",
+    "risk": "low"
+  },
+  "en:e316": {
+    "name": "E316 - sodium erythorbate",
+    "risk": "low"
+  },
+  "en:e317": {
+    "name": "E317 - Erythorbin acid",
+    "risk": "low"
+  },
+  "en:e318": {
+    "name": "E318 - Calcium erythorbin",
+    "risk": "low"
+  },
+  "en:e319": {
+    "name": "E319 - Tertiary-butylhydroquinone (tbhq)",
+    "risk": "low"
+  },
+  "en:e320": {
+    "name": "E320 - Butylated hydroxyanisole (bha)",
+    "risk": "low"
+  },
+  "en:e321": {
+    "name": "E321 - Butylated hydroxytoluene",
+    "risk": "high"
+  },
+  "en:e322": {
+    "name": "E322 - Lecithins",
+    "risk": "low"
+  },
+  "en:e322a": {
+    "name": "E322a - Oat lecithin",
+    "risk": "low"
+  },
+  "en:e322i": {
+    "name": "E322i - Lecithin",
+    "risk": "low"
+  },
+  "en:e322ii": {
+    "name": "E322ii - Partially hydrolyzed lecithin",
+    "risk": "low"
+  },
+  "en:e323": {
+    "name": "E323 - Anoxomer",
+    "risk": "low"
+  },
+  "en:e324": {
+    "name": "E324 - Ethoxyquin",
+    "risk": "low"
+  },
+  "en:e325": {
+    "name": "E325 - sodium lactate",
+    "risk": "low"
+  },
+  "en:e326": {
+    "name": "E326 - potassium lactate",
+    "risk": "low"
+  },
+  "en:e327": {
+    "name": "E327 - calcium lactate",
+    "risk": "low"
+  },
+  "en:e328": {
+    "name": "E328 - ammonium lactate",
+    "risk": "low"
+  },
+  "en:e329": {
+    "name": "E329 - Magnesium lactate",
+    "risk": "low"
+  },
+  "en:e330": {
+    "name": "E330 - Citric acid",
+    "risk": "low"
+  },
+  "en:e331": {
+    "name": "E331 - Sodium citrates",
+    "risk": "low"
+  },
+  "en:e331i": {
+    "name": "E331i - Monosodium citrate",
+    "risk": "low"
+  },
+  "en:e331ii": {
+    "name": "E331ii - Disodium citrate",
+    "risk": "low"
+  },
+  "en:e331iii": {
+    "name": "E331iii - Trisodium citrate",
+    "risk": "low"
+  },
+  "en:e332": {
+    "name": "E332 - Potassium citrates",
+    "risk": "low"
+  },
+  "en:e332i": {
+    "name": "E332i - Monopotassium citrate",
+    "risk": "low"
+  },
+  "en:e332ii": {
+    "name": "E332ii - Tripotassium citrate",
+    "risk": "low"
+  },
+  "en:e333": {
+    "name": "E333 - Calcium citrates",
+    "risk": "low"
+  },
+  "en:e333i": {
+    "name": "E333i - Monocalcium citrate",
+    "risk": "low"
+  },
+  "en:e333ii": {
+    "name": "E333ii - Dicalcium citrate",
+    "risk": "low"
+  },
+  "en:e333iii": {
+    "name": "E333iii - Tricalcium citrate",
+    "risk": "low"
+  },
+  "en:e334": {
+    "name": "E334 - L(+)-tartaric acid",
+    "risk": "high"
+  },
+  "en:e335": {
+    "name": "E335 - Sodium tartrates",
+    "risk": "high"
+  },
+  "en:e335i": {
+    "name": "E335i - Monosodium tartrate",
+    "risk": "high"
+  },
+  "en:e335ii": {
+    "name": "E335ii - Disodium tartrate",
+    "risk": "high"
+  },
+  "en:e336": {
+    "name": "E336 - Potassium tartrates",
+    "risk": "high"
+  },
+  "en:e336i": {
+    "name": "E336i - Monopotassium tartrate",
+    "risk": "high"
+  },
+  "en:e336ii": {
+    "name": "E336ii - Dipotassium tartrate",
+    "risk": "high"
+  },
+  "en:e337": {
+    "name": "E337 - Potassium sodium tartrate",
+    "risk": "high"
+  },
+  "en:e338": {
+    "name": "E338 - Phosphoric acid",
+    "risk": "high"
+  },
+  "en:e339": {
+    "name": "E339 - Sodium phosphates",
+    "risk": "high"
+  },
+  "en:e339i": {
+    "name": "E339i - Monosodium phosphate",
+    "risk": "high"
+  },
+  "en:e339ii": {
+    "name": "E339ii - Disodium phosphate",
+    "risk": "high"
+  },
+  "en:e339iii": {
+    "name": "E339iii - Trisodium phosphate",
+    "risk": "high"
+  },
+  "en:e340": {
+    "name": "E340 - Potassium phosphates",
+    "risk": "high"
+  },
+  "en:e340i": {
+    "name": "E340i - Monopotassium phosphate",
+    "risk": "high"
+  },
+  "en:e340ii": {
+    "name": "E340ii - Dipotassium phosphate",
+    "risk": "high"
+  },
+  "en:e340iii": {
+    "name": "E340iii - Tripotassium phosphate",
+    "risk": "high"
+  },
+  "en:e341": {
+    "name": "E341 - Calcium phosphates",
+    "risk": "high"
+  },
+  "en:e341i": {
+    "name": "E341i - Monocalcium phosphate",
+    "risk": "high"
+  },
+  "en:e341ii": {
+    "name": "E341ii - Dicalcium phosphate",
+    "risk": "high"
+  },
+  "en:e341iii": {
+    "name": "E341iii - Tricalcium phosphate",
+    "risk": "high"
+  },
+  "en:e342": {
+    "name": "E342 - Ammonium phosphate",
+    "risk": "low"
+  },
+  "en:e343": {
+    "name": "E343 - Magnesium phosphates",
+    "risk": "high"
+  },
+  "en:e343i": {
+    "name": "E343i - Monomagnesium phosphate",
+    "risk": "high"
+  },
+  "en:e343ii": {
+    "name": "E343ii - Dimagnesium phosphate",
+    "risk": "high"
+  },
+  "en:e344": {
+    "name": "E344 - Lecithin citrate",
+    "risk": "low"
+  },
+  "en:e345": {
+    "name": "E345 - Magnesium citrate",
+    "risk": "low"
+  },
+  "en:e349": {
+    "name": "E349 - ammonium malate",
+    "risk": "low"
+  },
+  "en:e350": {
+    "name": "E350 - Sodium malates",
+    "risk": "low"
+  },
+  "en:e350i": {
+    "name": "E350i - Sodium malate",
+    "risk": "low"
+  },
+  "en:e350ii": {
+    "name": "E350ii - Sodium hydrogen malate",
+    "risk": "low"
+  },
+  "en:e351": {
+    "name": "E351 - Potassium malate",
+    "risk": "low"
+  },
+  "en:e352": {
+    "name": "E352 - Calcium malates",
+    "risk": "low"
+  },
+  "en:e352i": {
+    "name": "E352i - Calcium malate",
+    "risk": "low"
+  },
+  "en:e352ii": {
+    "name": "E352ii - Calcium hydrogen malate",
+    "risk": "low"
+  },
+  "en:e353": {
+    "name": "E353 - Metatartaric acid",
+    "risk": "low"
+  },
+  "en:e354": {
+    "name": "E354 - Calcium tartrate",
+    "risk": "high"
+  },
+  "en:e355": {
+    "name": "E355 - Adipic acid",
+    "risk": "low"
+  },
+  "en:e356": {
+    "name": "E356 - Sodium adipate",
+    "risk": "low"
+  },
+  "en:e357": {
+    "name": "E357 - Potassium adipate",
+    "risk": "low"
+  },
+  "en:e359": {
+    "name": "E359 - ammonium adipate",
+    "risk": "low"
+  },
+  "en:e363": {
+    "name": "E363 - Succinic acid",
+    "risk": "low"
+  },
+  "en:e365": {
+    "name": "E365 - Sodium fumarate",
+    "risk": "low"
+  },
+  "en:e366": {
+    "name": "E366 - Potassium fumarate",
+    "risk": "low"
+  },
+  "en:e367": {
+    "name": "E367 - Calcium fumarate",
+    "risk": "low"
+  },
+  "en:e368": {
+    "name": "E368 - ammonium fumarate",
+    "risk": "low"
+  },
+  "en:e369": {
+    "name": "E369 - Alanin",
+    "risk": "low"
+  },
+  "en:e370": {
+    "name": "E370 - 1‚4-Heptonolactone",
+    "risk": "low"
+  },
+  "en:e375": {
+    "name": "E375 - Nicotinic acid",
+    "risk": "low"
+  },
+  "en:e380": {
+    "name": "E380 - Triammonium citrate",
+    "risk": "low"
+  },
+  "en:e381": {
+    "name": "E381 - ferric ammonium citrate",
+    "risk": "low"
+  },
+  "en:e383": {
+    "name": "E383 - calcium glycerophosphate",
+    "risk": "low"
+  },
+  "en:e384": {
+    "name": "E384 - Isopropyl citrates",
+    "risk": "low"
+  },
+  "en:e385": {
+    "name": "E385 - Calcium disodium ethylenediaminetetraacetate",
+    "risk": "low"
+  },
+  "en:e388": {
+    "name": "E388 - Thiodipropionic acid",
+    "risk": "low"
+  },
+  "en:e391": {
+    "name": "E391 - Phytic acid",
+    "risk": "low"
+  },
+  "en:e392": {
+    "name": "E392 - Extracts of rosemary",
+    "risk": "low"
+  },
+  "en:e399": {
+    "name": "E399 - Calcium lactobionate",
+    "risk": "low"
+  },
+  "en:e400": {
+    "name": "E400 - Alginic acid",
+    "risk": "low"
+  },
+  "en:e401": {
+    "name": "E401 - sodium alginate",
+    "risk": "low"
+  },
+  "en:e402": {
+    "name": "E402 - Potassium alginate",
+    "risk": "low"
+  },
+  "en:e403": {
+    "name": "E403 - Ammonium alginate",
+    "risk": "low"
+  },
+  "en:e404": {
+    "name": "E404 - Calcium alginate",
+    "risk": "low"
+  },
+  "en:e405": {
+    "name": "E405 - Propane-1‚2-diol alginate",
+    "risk": "low"
+  },
+  "en:e406": {
+    "name": "E406 - Agar",
+    "risk": "low"
+  },
+  "en:e407": {
+    "name": "E407 - Carrageenan",
+    "risk": "high"
+  },
+  "en:e407a": {
+    "name": "E407a - Processed eucheuma seaweed",
+    "risk": "high"
+  },
+  "en:e408": {
+    "name": "E408 - Bakers yeast glycan",
+    "risk": "low"
+  },
+  "en:e409": {
+    "name": "E409 - Arabinogalactan",
+    "risk": "low"
+  },
+  "en:e410": {
+    "name": "E410 - Locust bean gum",
+    "risk": "low"
+  },
+  "en:e411": {
+    "name": "E411 - E411 food additive",
+    "risk": "low"
+  },
+  "en:e412": {
+    "name": "E412 - Guar gum",
+    "risk": "low"
+  },
+  "en:e413": {
+    "name": "E413 - Tragacanth",
+    "risk": "low"
+  },
+  "en:e414": {
+    "name": "E414 - Acacia gum",
+    "risk": "low"
+  },
+  "en:e414a": {
+    "name": "E414a - E414a food additive",
+    "risk": "low"
+  },
+  "en:e415": {
+    "name": "E415 - Xanthan gum",
+    "risk": "low"
+  },
+  "en:e416": {
+    "name": "E416 - Karaya-gum",
+    "risk": "low"
+  },
+  "en:e417": {
+    "name": "E417 - Tara gum",
+    "risk": "low"
+  },
+  "en:e418": {
+    "name": "E418 - Gellan gum",
+    "risk": "low"
+  },
+  "en:e419": {
+    "name": "E419 - Gum ghatti",
+    "risk": "low"
+  },
+  "en:e420": {
+    "name": "E420 - Sorbitol",
+    "risk": "low"
+  },
+  "en:e420i": {
+    "name": "E420i - D-sorbitol",
+    "risk": "low"
+  },
+  "en:e420ii": {
+    "name": "E420ii - Sorbitol syrup",
+    "risk": "low"
+  },
+  "en:e421": {
+    "name": "E421 - Mannitol",
+    "risk": "low"
+  },
+  "en:e422": {
+    "name": "E422 - Glycerol",
+    "risk": "low"
+  },
+  "en:e424": {
+    "name": "E424 - Curdlan",
+    "risk": "low"
+  },
+  "en:e425": {
+    "name": "E425 - Konjac",
+    "risk": "low"
+  },
+  "en:e425i": {
+    "name": "E425i - Konjac gum",
+    "risk": "low"
+  },
+  "en:e425ii": {
+    "name": "E425ii - Konjac glucomannan",
+    "risk": "low"
+  },
+  "en:e426": {
+    "name": "E426 - Soybean hemicellulose",
+    "risk": "low"
+  },
+  "en:e427": {
+    "name": "E427 - Cassia gum",
+    "risk": "low"
+  },
+  "en:e428": {
+    "name": "E428 - Gelatine",
+    "risk": "low"
+  },
+  "en:e429": {
+    "name": "E429 - peptone",
+    "risk": "low"
+  },
+  "en:e430": {
+    "name": "E430 - Polyoxyethylene (8) stearate",
+    "risk": "low"
+  },
+  "en:e431": {
+    "name": "E431 - Polyoxyethylene (40) stearate",
+    "risk": "low"
+  },
+  "en:e432": {
+    "name": "E432 - Polyoxyethylene sorbitan monolaurate",
+    "risk": "high"
+  },
+  "en:e433": {
+    "name": "E433 - Polyoxyethylene sorbitan monooleate",
+    "risk": "high"
+  },
+  "en:e434": {
+    "name": "E434 - Polyoxyethylene sorbitan monopalmitate",
+    "risk": "high"
+  },
+  "en:e435": {
+    "name": "E435 - Polyoxyethylene sorbitan monostearate",
+    "risk": "high"
+  },
+  "en:e436": {
+    "name": "E436 - Polyoxyethylene sorbitan tristearate",
+    "risk": "high"
+  },
+  "en:e440": {
+    "name": "E440 - Pectins",
+    "risk": "low"
+  },
+  "en:e440a": {
+    "name": "E440a - Pectin",
+    "risk": "low"
+  },
+  "en:e440aii": {
+    "name": "E440aii - Sodium pectate",
+    "risk": "low"
+  },
+  "en:e440aiii": {
+    "name": "E440aiii - Potassium pectate",
+    "risk": "low"
+  },
+  "en:e440aiv": {
+    "name": "E440aiv - Ammonium Pectate",
+    "risk": "low"
+  },
+  "en:e440b": {
+    "name": "E440b - pectin amide",
+    "risk": "low"
+  },
+  "en:e440i": {
+    "name": "E440i - non-amidated pectines",
+    "risk": "low"
+  },
+  "en:e440ii": {
+    "name": "E440ii - Amidated pectin",
+    "risk": "low"
+  },
+  "en:e441": {
+    "name": "E441 - Superglycerinated hydrogenated rapeseed oil",
+    "risk": "low"
+  },
+  "en:e442": {
+    "name": "E442 - Ammonium phosphatides",
+    "risk": "low"
+  },
+  "en:e443": {
+    "name": "E443 - Brominated vegetable oil",
+    "risk": "low"
+  },
+  "en:e444": {
+    "name": "E444 - Sucrose acetate isobutyrate",
+    "risk": "low"
+  },
+  "en:e445": {
+    "name": "E445 - Glycerol esters of wood rosin",
+    "risk": "low"
+  },
+  "en:e446": {
+    "name": "E446 - Succistearin",
+    "risk": "low"
+  },
+  "en:e450": {
+    "name": "E450 - Diphosphates",
+    "risk": "high"
+  },
+  "en:e450i": {
+    "name": "E450i - Disodium diphosphate",
+    "risk": "high"
+  },
+  "en:e450ii": {
+    "name": "E450ii - Trisodium diphosphate",
+    "risk": "high"
+  },
+  "en:e450iii": {
+    "name": "E450iii - Tetrasodium diphosphate",
+    "risk": "high"
+  },
+  "en:e450iv": {
+    "name": "E450iv - dipotassium dihydrogenpyrophosphate",
+    "risk": "low"
+  },
+  "en:e450v": {
+    "name": "E450v - Tetrapotassium diphosphate",
+    "risk": "high"
+  },
+  "en:e450vi": {
+    "name": "E450vi - Dicalcium diphosphate",
+    "risk": "high"
+  },
+  "en:e450vii": {
+    "name": "E450vii - Calcium dihydrogen diphosphate",
+    "risk": "high"
+  },
+  "en:e450viii": {
+    "name": "E450viii",
+    "risk": "low"
+  },
+  "en:e451": {
+    "name": "E451 - Triphosphates",
+    "risk": "high"
+  },
+  "en:e451i": {
+    "name": "E451i - Pentasodium triphosphate",
+    "risk": "high"
+  },
+  "en:e451ii": {
+    "name": "E451ii - Pentapotassium triphosphate",
+    "risk": "high"
+  },
+  "en:e452": {
+    "name": "E452 - Polyphosphates",
+    "risk": "high"
+  },
+  "en:e452i": {
+    "name": "E452i - Sodium polyphosphate",
+    "risk": "high"
+  },
+  "en:e452ii": {
+    "name": "E452ii - Potassium polyphosphate",
+    "risk": "high"
+  },
+  "en:e452iii": {
+    "name": "E452iii - Sodium calcium polyphosphate",
+    "risk": "high"
+  },
+  "en:e452iv": {
+    "name": "E452iv - Calcium polyphosphate",
+    "risk": "high"
+  },
+  "en:e452v": {
+    "name": "E452v - Ammonium polyphosphate",
+    "risk": "low"
+  },
+  "en:e452vi": {
+    "name": "E452vi - Sodium tripolyphosphate",
+    "risk": "low"
+  },
+  "en:e457": {
+    "name": "E457 - Alpha-Cyclodextrine",
+    "risk": "low"
+  },
+  "en:e458": {
+    "name": "E458 - Gamma-Cyclodextrine",
+    "risk": "low"
+  },
+  "en:e459": {
+    "name": "E459 - Beta-cyclodextrine",
+    "risk": "high"
+  },
+  "en:e460": {
+    "name": "E460 - Cellulose",
+    "risk": "low"
+  },
+  "en:e460i": {
+    "name": "E460i - Microcrystalline cellulose",
+    "risk": "high"
+  },
+  "en:e460ii": {
+    "name": "E460ii - Powdered cellulose",
+    "risk": "low"
+  },
+  "en:e461": {
+    "name": "E461 - methyl cellulose",
+    "risk": "low"
+  },
+  "en:e462": {
+    "name": "E462 - Ethyl cellulose",
+    "risk": "low"
+  },
+  "en:e463": {
+    "name": "E463 - Hydroxypropyl cellulose",
+    "risk": "low"
+  },
+  "en:e464": {
+    "name": "E464 - Hydroxypropyl methyl cellulose",
+    "risk": "low"
+  },
+  "en:e465": {
+    "name": "E465 - Ethyl methyl cellulose",
+    "risk": "low"
+  },
+  "en:e466": {
+    "name": "E466 - Sodium carboxy methyl cellulose",
+    "risk": "low"
+  },
+  "en:e467": {
+    "name": "E467 - Ethulose",
+    "risk": "low"
+  },
+  "en:e468": {
+    "name": "E468 - Cross-linked sodium carboxymethylcellulose",
+    "risk": "low"
+  },
+  "en:e469": {
+    "name": "E469 - Enzymatically hydrolysed carboxymethylcellulose",
+    "risk": "low"
+  },
+  "en:e470": {
+    "name": "E470 - Sodium/potassium/calcium and magnesium salts of fatty acids",
+    "risk": "low"
+  },
+  "en:e470a": {
+    "name": "E470a - Sodium/potassium and calcium salts of fatty acids",
+    "risk": "low"
+  },
+  "en:e470ai": {
+    "name": "E470ai - Sodium salts of fatty acids",
+    "risk": "low"
+  },
+  "en:e470aii": {
+    "name": "E470aii - Potassium salts of fatty acids",
+    "risk": "low"
+  },
+  "en:e470aiii": {
+    "name": "E470aiii - Calcium salts of fatty acids",
+    "risk": "low"
+  },
+  "en:e470b": {
+    "name": "E470b - Magnesium salts of fatty acids",
+    "risk": "low"
+  },
+  "en:e471": {
+    "name": "E471 - Mono- and diglycerides of fatty acids",
+    "risk": "low"
+  },
+  "en:e472": {
+    "name": "E472 - acid esters of mono- and diglycerides of fatty acids",
+    "risk": "low"
+  },
+  "en:e472a": {
+    "name": "E472a - Acetic acid esters of mono- and diglycerides of fatty acids",
+    "risk": "low"
+  },
+  "en:e472b": {
+    "name": "E472b - Lactic acid esters of mono- and diglycerides of fatty acids",
+    "risk": "low"
+  },
+  "en:e472c": {
+    "name": "E472c - Citric acid esters of mono- and diglycerides of fatty acids",
+    "risk": "low"
+  },
+  "en:e472d": {
+    "name": "E472d - Tartaric acid esters of mono- and diglycerides of fatty acids",
+    "risk": "low"
+  },
+  "en:e472e": {
+    "name": "E472e - Mono- and diacetyltartaric acid esters of mono- and diglycerides of fatty acids",
+    "risk": "high"
+  },
+  "en:e472f": {
+    "name": "E472f - Mixed acetic and tartaric acid esters of mono- and diglycerides of fatty acids",
+    "risk": "low"
+  },
+  "en:e472g": {
+    "name": "E472g - Succinylated monoglycerides",
+    "risk": "low"
+  },
+  "en:e473": {
+    "name": "E473 - Sucrose esters of fatty acids",
+    "risk": "high"
+  },
+  "en:e473a": {
+    "name": "E473a - Oligoesters of sucrose type I",
+    "risk": "low"
+  },
+  "en:e474": {
+    "name": "E474 - Sucroglycerides",
+    "risk": "high"
+  },
+  "en:e475": {
+    "name": "E475 - Polyglycerol esters of fatty acids",
+    "risk": "high"
+  },
+  "en:e476": {
+    "name": "E476 - Polyglycerol polyricinoleate",
+    "risk": "low"
+  },
+  "en:e477": {
+    "name": "E477 - Propane-1‚2-diol esters of fatty acids",
+    "risk": "low"
+  },
+  "en:e478": {
+    "name": "E478 - Lactylated fatty acid esters of glycerol and propane-1",
+    "risk": "low"
+  },
+  "en:e479b": {
+    "name": "E479b - Thermally oxidised soya bean oil interacted with mono- and diglycerides of fatty acids",
+    "risk": "low"
+  },
+  "en:e481": {
+    "name": "E481 - Sodium stearoyl-2-lactylate",
+    "risk": "high"
+  },
+  "en:e482": {
+    "name": "E482 - Calcium stearoyl-2-lactylate",
+    "risk": "high"
+  },
+  "en:e483": {
+    "name": "E483 - Stearyl tartrate",
+    "risk": "high"
+  },
+  "en:e484": {
+    "name": "E484 - Stearyl citrate",
+    "risk": "low"
+  },
+  "en:e485": {
+    "name": "E485 - Sodium stearoyl fumarate",
+    "risk": "low"
+  },
+  "en:e486": {
+    "name": "E486 - Calcium stearoyl fumarate",
+    "risk": "low"
+  },
+  "en:e487": {
+    "name": "E487 - sodium dodecyl sulfate",
+    "risk": "low"
+  },
+  "en:e488": {
+    "name": "E488 - Ethoxylated Mono- and Di-Glycerides",
+    "risk": "low"
+  },
+  "en:e489": {
+    "name": "E489 - Methyl glucoside-coconut oil ester",
+    "risk": "low"
+  },
+  "en:e490": {
+    "name": "E490 - Propylene glycol",
+    "risk": "low"
+  },
+  "en:e491": {
+    "name": "E491 - Sorbitan monostearate",
+    "risk": "high"
+  },
+  "en:e492": {
+    "name": "E492 - Sorbitan tristearate",
+    "risk": "high"
+  },
+  "en:e493": {
+    "name": "E493 - Sorbitan monolaurate",
+    "risk": "high"
+  },
+  "en:e494": {
+    "name": "E494 - Sorbitan monooleate",
+    "risk": "high"
+  },
+  "en:e495": {
+    "name": "E495 - Sorbitan monopalmitate",
+    "risk": "high"
+  },
+  "en:e496": {
+    "name": "E496 - Sorbitan trioleate",
+    "risk": "low"
+  },
+  "en:e500": {
+    "name": "E500 - Sodium carbonates",
+    "risk": "low"
+  },
+  "en:e500i": {
+    "name": "E500i - Sodium carbonate",
+    "risk": "low"
+  },
+  "en:e500ii": {
+    "name": "E500ii - Sodium hydrogen carbonate",
+    "risk": "low"
+  },
+  "en:e500iii": {
+    "name": "E500iii - Sodium sesquicarbonate",
+    "risk": "low"
+  },
+  "en:e501": {
+    "name": "E501 - Potassium carbonates",
+    "risk": "low"
+  },
+  "en:e501i": {
+    "name": "E501i - Potassium carbonate",
+    "risk": "low"
+  },
+  "en:e501ii": {
+    "name": "E501ii - Potassium hydrogen carbonate",
+    "risk": "low"
+  },
+  "en:e502": {
+    "name": "E502 - Carbonates",
+    "risk": "low"
+  },
+  "en:e503": {
+    "name": "E503 - Ammonium carbonates",
+    "risk": "low"
+  },
+  "en:e503i": {
+    "name": "E503i - Ammonium carbonate",
+    "risk": "low"
+  },
+  "en:e503ii": {
+    "name": "E503ii - Ammonium hydrogen carbonate",
+    "risk": "low"
+  },
+  "en:e504": {
+    "name": "E504 - Magnesium carbonates",
+    "risk": "low"
+  },
+  "en:e504i": {
+    "name": "E504i - Magnesium carbonate",
+    "risk": "low"
+  },
+  "en:e504ii": {
+    "name": "E504ii - Magnesium hydroxide carbonate",
+    "risk": "low"
+  },
+  "en:e505": {
+    "name": "E505 - Ferrous carbonate",
+    "risk": "low"
+  },
+  "en:e507": {
+    "name": "E507 - Hydrochloric acid",
+    "risk": "moderate"
+  },
+  "en:e508": {
+    "name": "E508 - Potassium chloride",
+    "risk": "moderate"
+  },
+  "en:e509": {
+    "name": "E509 - Calcium chloride",
+    "risk": "moderate"
+  },
+  "en:e510": {
+    "name": "E510 - ammonium chloride",
+    "risk": "low"
+  },
+  "en:e511": {
+    "name": "E511 - Magnesium chloride",
+    "risk": "moderate"
+  },
+  "en:e512": {
+    "name": "E512 - Stannous chloride",
+    "risk": "low"
+  },
+  "en:e513": {
+    "name": "E513 - Sulphuric acid",
+    "risk": "low"
+  },
+  "en:e514": {
+    "name": "E514 - Sodium sulphates",
+    "risk": "low"
+  },
+  "en:e514i": {
+    "name": "E514i - Sodium sulphate",
+    "risk": "low"
+  },
+  "en:e514ii": {
+    "name": "E514ii - Sodium hydrogen sulphate",
+    "risk": "low"
+  },
+  "en:e515": {
+    "name": "E515 - Potassium sulphates",
+    "risk": "low"
+  },
+  "en:e515i": {
+    "name": "E515i - Potassium sulphate",
+    "risk": "low"
+  },
+  "en:e515ii": {
+    "name": "E515ii - Potassium hydrogen sulphate",
+    "risk": "low"
+  },
+  "en:e516": {
+    "name": "E516 - Calcium sulphate",
+    "risk": "low"
+  },
+  "en:e517": {
+    "name": "E517 - Ammonium sulphate",
+    "risk": "low"
+  },
+  "en:e518": {
+    "name": "E518 - Magnesium sulphate",
+    "risk": "low"
+  },
+  "en:e519": {
+    "name": "E519 - Copper sulphate",
+    "risk": "low"
+  },
+  "en:e520": {
+    "name": "E520 - Aluminium sulphate",
+    "risk": "high"
+  },
+  "en:e521": {
+    "name": "E521 - Aluminium sodium sulphate",
+    "risk": "high"
+  },
+  "en:e522": {
+    "name": "E522 - Aluminium potassium sulphate",
+    "risk": "high"
+  },
+  "en:e523": {
+    "name": "E523 - Aluminium ammonium sulphate",
+    "risk": "high"
+  },
+  "en:e524": {
+    "name": "E524 - Sodium hydroxide",
+    "risk": "low"
+  },
+  "en:e525": {
+    "name": "E525 - Potassium hydroxide",
+    "risk": "low"
+  },
+  "en:e526": {
+    "name": "E526 - Calcium hydroxide",
+    "risk": "low"
+  },
+  "en:e527": {
+    "name": "E527 - Ammonium hydroxide",
+    "risk": "low"
+  },
+  "en:e528": {
+    "name": "E528 - Magnesium hydroxide",
+    "risk": "low"
+  },
+  "en:e529": {
+    "name": "E529 - Calcium oxide",
+    "risk": "low"
+  },
+  "en:e530": {
+    "name": "E530 - Magnesium oxide",
+    "risk": "low"
+  },
+  "en:e535": {
+    "name": "E535 - Sodium ferrocyanide",
+    "risk": "high"
+  },
+  "en:e536": {
+    "name": "E536 - Potassium ferrocyanide",
+    "risk": "high"
+  },
+  "en:e537": {
+    "name": "E537 - ferrous hexacyanomanganate",
+    "risk": "low"
+  },
+  "en:e538": {
+    "name": "E538 - Calcium ferrocyanide",
+    "risk": "high"
+  },
+  "en:e539": {
+    "name": "E539 - sodium thiosulfate",
+    "risk": "low"
+  },
+  "en:e540": {
+    "name": "E540 - Dicalcium diphosphate",
+    "risk": "low"
+  },
+  "en:e541": {
+    "name": "E541 - Sodium aluminium phosphate",
+    "risk": "high"
+  },
+  "en:e541i": {
+    "name": "E541i - Acid sodium aluminium phosphate",
+    "risk": "low"
+  },
+  "en:e541ii": {
+    "name": "E541ii - Alkaline sodium aluminium phosphate",
+    "risk": "low"
+  },
+  "en:e542": {
+    "name": "E542 - Bone phosphate",
+    "risk": "low"
+  },
+  "en:e543": {
+    "name": "E543 - E543 food additive",
+    "risk": "low"
+  },
+  "en:e544": {
+    "name": "E544 - Calcium polyphosphate",
+    "risk": "low"
+  },
+  "en:e545": {
+    "name": "E545 - Ammonium polyphosphate",
+    "risk": "low"
+  },
+  "en:e546": {
+    "name": "E546 - Magnesium pyrophosphate",
+    "risk": "low"
+  },
+  "en:e550": {
+    "name": "E550 - Sodium silicate",
+    "risk": "low"
+  },
+  "en:e551": {
+    "name": "E551 - Silicon dioxide",
+    "risk": "high"
+  },
+  "en:e552": {
+    "name": "E552 - Calcium silicate",
+    "risk": "low"
+  },
+  "en:e553": {
+    "name": "E553 - Magnesium silicates",
+    "risk": "low"
+  },
+  "en:e553a": {
+    "name": "E553a - synthetic magnesium silicates",
+    "risk": "low"
+  },
+  "en:e553ai": {
+    "name": "E553ai - Synthetic magnesium silicate",
+    "risk": "low"
+  },
+  "en:e553aii": {
+    "name": "E553aii - Magnesium trisilicate",
+    "risk": "low"
+  },
+  "en:e553b": {
+    "name": "E553b - Talc",
+    "risk": "low"
+  },
+  "en:e554": {
+    "name": "E554 - Sodium aluminium silicate",
+    "risk": "high"
+  },
+  "en:e555": {
+    "name": "E555 - Potassium aluminium silicate",
+    "risk": "high"
+  },
+  "en:e556": {
+    "name": "E556 - Calcium aluminium silicate",
+    "risk": "high"
+  },
+  "en:e557": {
+    "name": "E557 - hemimorphite",
+    "risk": "low"
+  },
+  "en:e558": {
+    "name": "E558 - Bentonite",
+    "risk": "high"
+  },
+  "en:e559": {
+    "name": "E559 - Aluminium silicate",
+    "risk": "high"
+  },
+  "en:e560": {
+    "name": "E560 - Potassium silicate",
+    "risk": "low"
+  },
+  "en:e570": {
+    "name": "E570 - Fatty acids",
+    "risk": "low"
+  },
+  "en:e571": {
+    "name": "E571",
+    "risk": "low"
+  },
+  "en:e572": {
+    "name": "E572 - Magnesium stearate",
+    "risk": "low"
+  },
+  "en:e573": {
+    "name": "E573 - Aluminium stearate",
+    "risk": "low"
+  },
+  "en:e574": {
+    "name": "E574 - Gluconic acid",
+    "risk": "low"
+  },
+  "en:e575": {
+    "name": "E575 - Glucono-delta-lactone",
+    "risk": "low"
+  },
+  "en:e576": {
+    "name": "E576 - Sodium gluconate",
+    "risk": "low"
+  },
+  "en:e577": {
+    "name": "E577 - Potassium gluconate",
+    "risk": "low"
+  },
+  "en:e578": {
+    "name": "E578 - calcium gluconate",
+    "risk": "low"
+  },
+  "en:e579": {
+    "name": "E579 - iron gluconate",
+    "risk": "low"
+  },
+  "en:e580": {
+    "name": "E580 - Magnesium Gluconate",
+    "risk": "low"
+  },
+  "en:e585": {
+    "name": "E585 - Ferrous lactate",
+    "risk": "low"
+  },
+  "en:e586": {
+    "name": "E586 - 4-hexylresorcinol",
+    "risk": "low"
+  },
+  "en:e620": {
+    "name": "E620 - Glutamic acid",
+    "risk": "high"
+  },
+  "en:e621": {
+    "name": "E621 - Monosodium glutamate",
+    "risk": "high"
+  },
+  "en:e622": {
+    "name": "E622 - Monopotassium glutamate",
+    "risk": "high"
+  },
+  "en:e623": {
+    "name": "E623 - Calcium diglutamate",
+    "risk": "high"
+  },
+  "en:e624": {
+    "name": "E624 - Monoammonium glutamate",
+    "risk": "high"
+  },
+  "en:e625": {
+    "name": "E625 - Magnesium diglutamate",
+    "risk": "high"
+  },
+  "en:e626": {
+    "name": "E626 - Guanylic acid",
+    "risk": "low"
+  },
+  "en:e627": {
+    "name": "E627 - Disodium guanylate",
+    "risk": "low"
+  },
+  "en:e628": {
+    "name": "E628 - Dipotassium guanylate",
+    "risk": "low"
+  },
+  "en:e629": {
+    "name": "E629 - Calcium guanylate",
+    "risk": "low"
+  },
+  "en:e630": {
+    "name": "E630 - Inosinic acid",
+    "risk": "low"
+  },
+  "en:e631": {
+    "name": "E631 - Disodium inosinate",
+    "risk": "low"
+  },
+  "en:e632": {
+    "name": "E632 - Dipotassium inosinate",
+    "risk": "low"
+  },
+  "en:e633": {
+    "name": "E633 - Calcium inosinate",
+    "risk": "low"
+  },
+  "en:e634": {
+    "name": "E634 - Calcium 5'-ribonucleotide",
+    "risk": "low"
+  },
+  "en:e635": {
+    "name": "E635 - Disodium 5'-ribonucleotide",
+    "risk": "low"
+  },
+  "en:e636": {
+    "name": "E636 - Maltol",
+    "risk": "low"
+  },
+  "en:e637": {
+    "name": "E637 - Ethyl maltol",
+    "risk": "low"
+  },
+  "en:e638": {
+    "name": "E638",
+    "risk": "low"
+  },
+  "en:e640": {
+    "name": "E640 - Glycine and its sodium salt",
+    "risk": "low"
+  },
+  "en:e640i": {
+    "name": "E640i - Glycine",
+    "risk": "low"
+  },
+  "en:e640ii": {
+    "name": "E640ii - Sodiumglycinate",
+    "risk": "low"
+  },
+  "en:e641": {
+    "name": "E641 - Leucine",
+    "risk": "low"
+  },
+  "en:e642": {
+    "name": "E642",
+    "risk": "low"
+  },
+  "en:e650": {
+    "name": "E650 - Zinc acetate",
+    "risk": "low"
+  },
+  "en:e710": {
+    "name": "E710 - Spiramycin",
+    "risk": "low"
+  },
+  "en:e713": {
+    "name": "E713 - Tylosin",
+    "risk": "low"
+  },
+  "en:e900": {
+    "name": "E900 - Dimethylpolysiloxane and Methylphenylpolysiloxane",
+    "risk": "low"
+  },
+  "en:e900a": {
+    "name": "E900a - Dimethyl polysiloxane",
+    "risk": "low"
+  },
+  "en:e900b": {
+    "name": "E900b - Methylphenylpolysiloxane",
+    "risk": "low"
+  },
+  "en:e901": {
+    "name": "E901 - white and yellow beeswax",
+    "risk": "low"
+  },
+  "en:e902": {
+    "name": "E902 - Candelilla wax",
+    "risk": "low"
+  },
+  "en:e903": {
+    "name": "E903 - Carnauba wax",
+    "risk": "low"
+  },
+  "en:e904": {
+    "name": "E904 - Shellac",
+    "risk": "low"
+  },
+  "en:e905": {
+    "name": "E905 - Synthetic wax",
+    "risk": "low"
+  },
+  "en:e905a": {
+    "name": "E905a - mineral oil",
+    "risk": "low"
+  },
+  "en:e905b": {
+    "name": "E905b - petroleum jelly",
+    "risk": "low"
+  },
+  "en:e905c": {
+    "name": "E905c - Petroleum wax",
+    "risk": "low"
+  },
+  "en:e905ci": {
+    "name": "E905ci - Microcrystalline wax",
+    "risk": "low"
+  },
+  "en:e905cii": {
+    "name": "E905cii - Paraffin wax",
+    "risk": "low"
+  },
+  "en:e905d": {
+    "name": "E905d - Mineral oil high viscosity",
+    "risk": "low"
+  },
+  "en:e905e": {
+    "name": "E905e - Mineral oil medium viscosity",
+    "risk": "low"
+  },
+  "en:e905f": {
+    "name": "E905f - Mineral oil medium and low viscosity class II",
+    "risk": "low"
+  },
+  "en:e905g": {
+    "name": "E905g - Mineral oil medium and low viscosity class III",
+    "risk": "low"
+  },
+  "en:e906": {
+    "name": "E906 - Benzoin resin",
+    "risk": "low"
+  },
+  "en:e907": {
+    "name": "E907 - Hydrogenated poly-1-decene",
+    "risk": "low"
+  },
+  "en:e908": {
+    "name": "E908 - Rice bran wax",
+    "risk": "low"
+  },
+  "en:e909": {
+    "name": "E909 - Spermaceti",
+    "risk": "low"
+  },
+  "en:e910": {
+    "name": "E910 - Wax ester",
+    "risk": "low"
+  },
+  "en:e911": {
+    "name": "E911 - Fatty acid methyl ester",
+    "risk": "low"
+  },
+  "en:e912": {
+    "name": "E912 - Montanic acid esters",
+    "risk": "low"
+  },
+  "en:e913": {
+    "name": "E913 - Lanolin",
+    "risk": "low"
+  },
+  "en:e914": {
+    "name": "E914 - Oxidised polyethylene wax",
+    "risk": "low"
+  },
+  "en:e915": {
+    "name": "E915 - Esters of Colophane",
+    "risk": "low"
+  },
+  "en:e916": {
+    "name": "E916 - Calcium iodate",
+    "risk": "low"
+  },
+  "en:e917": {
+    "name": "E917 - potassium iodate",
+    "risk": "low"
+  },
+  "en:e918": {
+    "name": "E918 - Nitrogen oxides",
+    "risk": "low"
+  },
+  "en:e919": {
+    "name": "E919 - Nitrosyl chloride",
+    "risk": "low"
+  },
+  "en:e920": {
+    "name": "E920 - l-cysteine",
+    "risk": "low"
+  },
+  "en:e921": {
+    "name": "E921 - L-cysteine hydrochloride monohydrate",
+    "risk": "low"
+  },
+  "en:e922": {
+    "name": "E922 - Potassium persulfate",
+    "risk": "low"
+  },
+  "en:e923": {
+    "name": "E923 - ammonium persulfate",
+    "risk": "low"
+  },
+  "en:e924": {
+    "name": "E924 - Potassium bromate",
+    "risk": "low"
+  },
+  "en:e924a": {
+    "name": "E924a - Potassium bromate",
+    "risk": "low"
+  },
+  "en:e924b": {
+    "name": "E924b - Calcium bromate",
+    "risk": "low"
+  },
+  "en:e925": {
+    "name": "E925 - Chlorine",
+    "risk": "low"
+  },
+  "en:e926": {
+    "name": "E926 - Chlorine dioxide",
+    "risk": "low"
+  },
+  "en:e927": {
+    "name": "E927 - Azodicarbonamide and Carbamide",
+    "risk": "low"
+  },
+  "en:e927a": {
+    "name": "E927a - Azodicarbonamide",
+    "risk": "low"
+  },
+  "en:e927b": {
+    "name": "E927b - Carbamide",
+    "risk": "low"
+  },
+  "en:e928": {
+    "name": "E928 - Benzole peroxide",
+    "risk": "low"
+  },
+  "en:e929": {
+    "name": "E929 - acetone peroxide",
+    "risk": "low"
+  },
+  "en:e930": {
+    "name": "E930 - calcium peroxide",
+    "risk": "low"
+  },
+  "en:e931": {
+    "name": "E931 - Nitrogen",
+    "risk": "low"
+  },
+  "en:e932": {
+    "name": "E932 - Nitrogen oxide",
+    "risk": "low"
+  },
+  "en:e938": {
+    "name": "E938 - Argon",
+    "risk": "low"
+  },
+  "en:e939": {
+    "name": "E939 - Helium",
+    "risk": "low"
+  },
+  "en:e940": {
+    "name": "E940 - Dichlorodifluoromethane",
+    "risk": "low"
+  },
+  "en:e941": {
+    "name": "E941 - Nitrogen",
+    "risk": "low"
+  },
+  "en:e942": {
+    "name": "E942 - Nitrous oxide",
+    "risk": "low"
+  },
+  "en:e943a": {
+    "name": "E943a - Butane",
+    "risk": "low"
+  },
+  "en:e943b": {
+    "name": "E943b - Isobutane",
+    "risk": "low"
+  },
+  "en:e944": {
+    "name": "E944 - Propane",
+    "risk": "low"
+  },
+  "en:e945": {
+    "name": "E945 - chloropentafluoroethane",
+    "risk": "low"
+  },
+  "en:e946": {
+    "name": "E946 - octafluorocyclobutane",
+    "risk": "low"
+  },
+  "en:e948": {
+    "name": "E948 - Oxygen",
+    "risk": "low"
+  },
+  "en:e949": {
+    "name": "E949 - Hydrogen",
+    "risk": "low"
+  },
+  "en:e950": {
+    "name": "E950 - Acesulfame k",
+    "risk": "high"
+  },
+  "en:e951": {
+    "name": "E951 - Aspartame",
+    "risk": "low"
+  },
+  "en:e952": {
+    "name": "E952 - Cyclamic acid and its Na and Ca salts",
+    "risk": "low"
+  },
+  "en:e953": {
+    "name": "E953 - isomalt",
+    "risk": "low"
+  },
+  "en:e954": {
+    "name": "E954 - saccharin and its salts",
+    "risk": "low"
+  },
+  "en:e955": {
+    "name": "E955 - Sucralose",
+    "risk": "high"
+  },
+  "en:e956": {
+    "name": "E956 - Alitame",
+    "risk": "low"
+  },
+  "en:e957": {
+    "name": "E957 - Thaumatin",
+    "risk": "low"
+  },
+  "en:e958": {
+    "name": "E958 - Glycyrrhizin",
+    "risk": "low"
+  },
+  "en:e959": {
+    "name": "E959 - Neohesperidine dihydrochalcone",
+    "risk": "low"
+  },
+  "en:e960": {
+    "name": "E960 - Steviol glycosides",
+    "risk": "high"
+  },
+  "en:e960a": {
+    "name": "E960a - Steviol glycosides from Stevia",
+    "risk": "low"
+  },
+  "en:e960b": {
+    "name": "E960b - Rebaudioside from multiple gene donors expressed in Yarrowia lipolityca",
+    "risk": "low"
+  },
+  "en:e960c": {
+    "name": "E960c - Enzymatically produced steviol glycosides",
+    "risk": "low"
+  },
+  "en:e960d": {
+    "name": "E960d - Glucosylated steviol glycosides",
+    "risk": "low"
+  },
+  "en:e961": {
+    "name": "E961 - Neotame",
+    "risk": "low"
+  },
+  "en:e962": {
+    "name": "E962 - Salt of aspartame-acesulfame",
+    "risk": "low"
+  },
+  "en:e963": {
+    "name": "E963 - Tagatose",
+    "risk": "low"
+  },
+  "en:e964": {
+    "name": "E964 - Polyglycitol syrup",
+    "risk": "low"
+  },
+  "en:e965": {
+    "name": "E965 - maltitol",
+    "risk": "low"
+  },
+  "en:e965i": {
+    "name": "E965i - D-Maltitol",
+    "risk": "low"
+  },
+  "en:e965ii": {
+    "name": "E965ii - Maltitol syrup",
+    "risk": "low"
+  },
+  "en:e966": {
+    "name": "E966 - Lactitol",
+    "risk": "low"
+  },
+  "en:e967": {
+    "name": "E967 - Xylitol",
+    "risk": "low"
+  },
+  "en:e968": {
+    "name": "E968 - Erythritol",
+    "risk": "low"
+  },
+  "en:e969": {
+    "name": "E969 - Advantame",
+    "risk": "low"
+  },
+  "en:e999": {
+    "name": "E999 - Quillaia extract",
+    "risk": "low"
+  },
+  "en:exxx": {
+    "name": "Exxx - Exxx food additive",
+    "risk": "low"
+  }
+}
