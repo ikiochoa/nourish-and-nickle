@@ -7,6 +7,10 @@ from swiss_pantry.pricing.normalize import parse_package_size
 from swiss_pantry.scrapers.base import FetchContext, Scraper
 from swiss_pantry.storage.models import RawProduct
 
+# Migros is the one store that still needs a real (headed) browser: its JSON
+# API sits behind Cloudflare, which refuses plain HTTP requests and serves
+# headless Chromium a fake "maintenance" page. So the scheduled cloud run
+# (--no-browser) skips Migros, and its prices are refreshed from a laptop.
 SEARCH_URL = "https://www.migros.ch/en/search?query={query}"
 CARDS_ENDPOINT = "product-display/public/v4/product-cards"
 

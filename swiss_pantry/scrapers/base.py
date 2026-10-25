@@ -60,6 +60,10 @@ class FetchContext:
 
 class Scraper(ABC):
     store_name: str
+    # True for a store that only stocks a few of our categories, so coming
+    # back empty is normal and only failed requests count toward the
+    # pipeline's "this store has cut us off" check.
+    sparse_range: bool = False
 
     @abstractmethod
     def fetch(self, ctx: FetchContext, category: Category) -> list[RawProduct]:

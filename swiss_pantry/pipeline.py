@@ -18,6 +18,7 @@ from swiss_pantry.scrapers.base import BrowserUnavailable, FetchContext, new_htt
 from swiss_pantry.scrapers.denner import DennerScraper
 from swiss_pantry.scrapers.lidl import LidlScraper
 from swiss_pantry.scrapers.migros import MigrosScraper
+from swiss_pantry.scrapers.ottos import OttosScraper
 from swiss_pantry.storage.db import DB_PATH, get_connection, upsert_products
 from swiss_pantry.storage.models import RawProduct, ScoredProduct
 
@@ -30,7 +31,7 @@ log = logging.getLogger("pipeline")
 # (see conversation), so Coop stays manual/phase-2 for now.
 # Spar is excluded too: spar.ch has no online product catalog at all (just
 # weekly-flyer marketing content), so there's nothing there to scrape.
-SCRAPERS = [MigrosScraper(), AldiScraper(), DennerScraper(), LidlScraper()]
+SCRAPERS = [MigrosScraper(), AldiScraper(), DennerScraper(), LidlScraper(), OttosScraper()]
 
 
 def enrich(raw: RawProduct, category: Category, off_http: httpx.Client, off_cache: dict) -> ScoredProduct:
@@ -144,6 +145,7 @@ def run(
                     if scraper.store_name in cut_off:
                         continue
                     log.info("Scraping %s / %s", scraper.store_name, category.id)
+                    failed = False
                     try:
                         raw_products = scraper.fetch(ctx, category)
                     except BrowserUnavailable:
@@ -155,11 +157,12 @@ def run(
                         # starts refusing requests trips the cut-off too.
                         log.error("Scrape failed for %s / %s: %s", scraper.store_name, category.id, e)
                         raw_products = []
+                        failed = True
                     time.sleep(REQUEST_PAUSE_S)
                     raw_products = [p for p in raw_products if p.price_chf > 0]
                     log.info("  -> %d matches", len(raw_products))
 
-                    if raw_products:
+                    if raw_products or (scraper.sparse_range and not failed):
                         consecutive_empty[scraper.store_name] = 0
                     else:
                         consecutive_empty[scraper.store_name] += 1

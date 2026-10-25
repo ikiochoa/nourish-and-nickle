@@ -8,8 +8,8 @@ Built for a Zurich household: vegetarian, additive-conscious, price-conscious.
 
 ## What it does
 
-- Scrapes **Migros, Aldi, Denner and Lidl** for a configurable set of product
-  categories (soy milk, tofu, mozzarella, müsli, oats, hummus, …).
+- Fetches prices from **Migros, Aldi, Denner, Lidl and Otto's** for a
+  configurable set of product categories (soy milk, tofu, mozzarella, müsli, oats, hummus, …).
 - Normalises every price to **CHF per 100 g / 100 ml / roll**, so different
   pack sizes are directly comparable.
 - Scores each product for health using [Open Food Facts](https://world.openfoodfacts.org),
@@ -63,6 +63,13 @@ Scrape everything (backs up the DB first):
 .venv/bin/python -m swiss_pantry.pipeline
 ```
 
+Skip any store that needs a browser (today only Migros), as the scheduled
+cloud run does:
+
+```bash
+.venv/bin/python -m swiss_pantry.pipeline --no-browser
+```
+
 Scrape one store or category:
 
 ```bash
@@ -74,6 +81,12 @@ Replay a scoring-rule change over existing data, without re-scraping:
 
 ```bash
 .venv/bin/python rescore.py
+```
+
+Run the tests:
+
+```bash
+.venv/bin/pip install pytest && .venv/bin/python -m pytest
 ```
 
 Run the app:
@@ -90,7 +103,14 @@ browser), so it serves `snapshot/pantry.db`, a read-only copy of the working
 DB that is committed to the repo. Hosted, "Hide from this category" is not
 shown, so visitors can't change the data for everyone.
 
-Refresh the online prices after a scrape:
+A GitHub Actions job (`.github/workflows/refresh-prices.yml`) refreshes the
+snapshot every Monday: it starts from `snapshot/pantry.db`, re-fetches every
+store that works without a browser, and commits the new snapshot, which
+redeploys the app. It can also be started by hand from the repo's Actions tab.
+Migros needs a browser, so the cloud run keeps its last published prices;
+refresh them from a laptop. The app shows a "prices as of" date per store.
+
+Refresh the online prices (including Migros) from a laptop:
 
 ```bash
 .venv/bin/python -m swiss_pantry.pipeline
@@ -133,7 +153,13 @@ scripts/publish_snapshot.py  refreshes snapshot/pantry.db
   up but excluded from the pipeline until access is granted. No attempt is made
   to work around the protection.
 - **Spar** has no online product catalogue to scrape.
-- Migros needs a headed browser; the others run headless.
+- **Migros** needs a headed browser: its API is behind Cloudflare, which refuses
+  plain HTTP requests. Aldi, Denner, Lidl and Otto's are fetched with plain
+  HTTP requests from the JSON feeds or pages their own websites use.
+- **Otto's** sells mostly non-food; its grocery range is small and
+  shelf-stable, so most fresh categories have no Otto's products.
+- Only Migros gives barcodes. The other stores' products are matched to Open
+  Food Facts by name, which is why most of them are Unrated.
 - Scraping is low-volume and rate-limited, for personal use. Store markup
   changes will occasionally break a scraper — each one is isolated to its own
   module.
