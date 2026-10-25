@@ -7,7 +7,15 @@ import streamlit as st
 from swiss_pantry import ui
 from swiss_pantry.health import scoring
 from swiss_pantry.matching.categorize import load_categories
-from swiss_pantry.storage.db import clear_exclusions, count_exclusions, exclude_product, get_connection
+from swiss_pantry.storage.db import (
+    DB_PATH,
+    SNAPSHOT_PATH,
+    clear_exclusions,
+    count_exclusions,
+    exclude_product,
+    get_connection,
+    get_snapshot_connection,
+)
 
 st.set_page_config(page_title="Swiss Pantry", layout="wide", page_icon="🛒")
 
@@ -16,7 +24,10 @@ if "cart" not in st.session_state:
 
 categories = load_categories()
 cat_by_id = {c.id: c for c in categories}
-conn = get_connection()
+# Locally the app runs on the scraper's working DB. Hosted, there is no data/
+# directory, so it serves the committed snapshot read-only instead.
+read_only = not DB_PATH.exists() and SNAPSHOT_PATH.exists()
+conn = get_snapshot_connection() if read_only else get_connection()
 
 UNIT_LABEL = {"g": "CHF/100g", "ml": "CHF/100ml", "roll": "CHF/roll"}
 NO_DATA = ui.NO_DATA
@@ -49,7 +60,7 @@ def nutrition_row(off_raw_json: str | None) -> dict:
     """Values are formatted as display strings (not left numeric) specifically
     so a missing value can show as an explicit "No data" instead of a blank
     cell that reads as zero or an accidental gap."""
-    if not off_raw_json:
+    if not isinstance(off_raw_json, str):
         row = dict.fromkeys([label for label, _ in NUTRITION_FIELDS], NO_DATA)
         row["Ingredients"] = NO_DATA
         return row
@@ -100,7 +111,7 @@ with tab_browse:
     chosen_stores = st.sidebar.multiselect("Stores", stores, default=stores)
     rated_only = st.sidebar.checkbox("Only products with a health grade", value=False)
 
-    hidden_count = count_exclusions(conn, selected_id)
+    hidden_count = 0 if read_only else count_exclusions(conn, selected_id)
     if hidden_count:
         st.sidebar.caption(f"{hidden_count} item(s) hidden here")
         if st.sidebar.button("Unhide all in this category"):
@@ -117,7 +128,10 @@ with tab_browse:
     st.markdown(f'<div class="sp-title">{category.name}</div>', unsafe_allow_html=True)
 
     if df.empty:
-        st.info("Nothing to show. Run `python -m swiss_pantry.pipeline` or widen the filters.")
+        if read_only:
+            st.info("Nothing to show. Try widening the filters.")
+        else:
+            st.info("Nothing to show. Run `python -m swiss_pantry.pipeline` or widen the filters.")
     else:
         rated = int(df["health_score"].notna().sum())
         cheapest = df["price_per_unit"].min()
@@ -140,7 +154,7 @@ with tab_browse:
         else:
             nn_int = lambda v: None if pd.isna(v) else int(v)  # noqa: E731
             nn_float = lambda v: None if pd.isna(v) else float(v)  # noqa: E731
-            nn_tags = lambda v: None if v is None else json.loads(v)  # noqa: E731
+            nn_tags = lambda v: None if pd.isna(v) else json.loads(v)  # noqa: E731
             df["Why"] = df.apply(
                 lambda r: scoring.explain(
                     nn_int(r["nova_group"]), nn_tags(r["additives_tags"]), nn_float(r["saturated_fat_per_100g"])
@@ -197,7 +211,8 @@ with tab_browse:
         )
 
         st.divider()
-        left, right = st.columns(2)
+        # Hiding writes to the DB, so it only exists when running locally.
+        left, right = (st.container(), None) if read_only else st.columns(2)
         labels = {f"{r['Store']} — {r['Product']}": int(r["id"]) for _, r in df.iterrows()}
 
         with left:
@@ -211,18 +226,19 @@ with tab_browse:
                     }
                 st.rerun()
 
-        with right:
-            to_hide = st.multiselect(
-                "Hide from this category",
-                options=list(labels),
-                help="For products that don't belong here. Persists across re-scrapes.",
-            )
-            if st.button("Hide selected", use_container_width=True, disabled=not to_hide):
-                for label in to_hide:
-                    row = df[df["id"] == labels[label]].iloc[0]
-                    exclude_product(conn, row["Store"], selected_id, row["Product"])
-                    st.session_state.cart.pop(labels[label], None)
-                st.rerun()
+        if right is not None:
+            with right:
+                to_hide = st.multiselect(
+                    "Hide from this category",
+                    options=list(labels),
+                    help="For products that don't belong here. Persists across re-scrapes.",
+                )
+                if st.button("Hide selected", use_container_width=True, disabled=not to_hide):
+                    for label in to_hide:
+                        row = df[df["id"] == labels[label]].iloc[0]
+                        exclude_product(conn, row["Store"], selected_id, row["Product"])
+                        st.session_state.cart.pop(labels[label], None)
+                    st.rerun()
 
         with st.expander("How is the health score calculated?"):
             st.markdown(
