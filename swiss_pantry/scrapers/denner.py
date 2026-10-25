@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-from playwright.sync_api import Browser
-
 from swiss_pantry.matching.categorize import Category, matches_category
 from swiss_pantry.pricing.normalize import parse_package_size
-from swiss_pantry.scrapers.base import Scraper
+from swiss_pantry.scrapers.base import FetchContext, Scraper
 from swiss_pantry.storage.models import RawProduct
 
 HOME_URL = "https://www.denner.ch/de"
@@ -35,8 +33,8 @@ def _flatten(attribute_info: list[dict]) -> dict:
 class DennerScraper(Scraper):
     store_name = "Denner"
 
-    def fetch(self, browser: Browser, category: Category) -> list[RawProduct]:
-        page = browser.new_page()
+    def fetch(self, ctx: FetchContext, category: Category) -> list[RawProduct]:
+        page = ctx.browser().new_page()
         captured: list[dict] = []
 
         def on_response(response):

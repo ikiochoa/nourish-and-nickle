@@ -3,16 +3,14 @@ from __future__ import annotations
 import re
 import urllib.parse
 
-from playwright.sync_api import Browser
-
 from swiss_pantry.matching.categorize import Category, matches_category
 from swiss_pantry.pricing.normalize import parse_package_size
-from swiss_pantry.scrapers.base import Scraper
+from swiss_pantry.scrapers.base import FetchContext, Scraper
 from swiss_pantry.storage.models import RawProduct
 
 # Plain, unauthenticated JSON endpoint (Magento/Elasticsuite "suggest" AJAX) -
-# no bot protection observed, so a lightweight HTTP request context is enough;
-# no need to render a page.
+# no bot protection observed, so a plain HTTP request is enough; no need to
+# render a page.
 SUGGEST_URL = "https://sortiment.lidl.ch/de/search/ajax/suggest/?q={query}"
 
 PRICE_RE = re.compile(r'content="([\d.]+)"')
@@ -22,12 +20,11 @@ FOOTER_RE = re.compile(r'pricefield__footer">([^<]+)<')
 class LidlScraper(Scraper):
     store_name = "Lidl"
 
-    def fetch(self, browser: Browser, category: Category) -> list[RawProduct]:
-        context = browser.new_context()
+    def fetch(self, ctx: FetchContext, category: Category) -> list[RawProduct]:
         query = urllib.parse.quote(category.search_de)
-        resp = context.request.get(SUGGEST_URL.format(query=query), timeout=15000)
-        items = resp.json() if resp.ok else []
-        context.close()
+        resp = ctx.http.get(SUGGEST_URL.format(query=query))
+        resp.raise_for_status()
+        items = resp.json()
 
         products: list[RawProduct] = []
         for item in items:

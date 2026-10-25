@@ -1,11 +1,9 @@
 from __future__ import annotations
 import urllib.parse
 
-from playwright.sync_api import Browser
-
 from swiss_pantry.matching.categorize import Category, matches_category
 from swiss_pantry.pricing.normalize import parse_package_size
-from swiss_pantry.scrapers.base import Scraper
+from swiss_pantry.scrapers.base import FetchContext, Scraper
 from swiss_pantry.storage.models import RawProduct
 
 SEARCH_URL = "https://www.coop.ch/en/search/?text={query}"
@@ -25,8 +23,8 @@ EXTRACT_JS = """
 class CoopScraper(Scraper):
     store_name = "Coop"
 
-    def fetch(self, browser: Browser, category: Category) -> list[RawProduct]:
-        page = browser.new_page()
+    def fetch(self, ctx: FetchContext, category: Category) -> list[RawProduct]:
+        page = ctx.browser().new_page()
         query = urllib.parse.quote(category.search_de)
         page.goto(SEARCH_URL.format(query=query), wait_until="networkidle", timeout=30000)
         tiles = page.eval_on_selector_all("a.productTile[data-productid]", EXTRACT_JS)

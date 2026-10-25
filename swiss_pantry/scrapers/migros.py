@@ -2,11 +2,9 @@ from __future__ import annotations
 import json
 import urllib.parse
 
-from playwright.sync_api import Browser
-
 from swiss_pantry.matching.categorize import Category, matches_category
 from swiss_pantry.pricing.normalize import parse_package_size
-from swiss_pantry.scrapers.base import Scraper
+from swiss_pantry.scrapers.base import FetchContext, Scraper
 from swiss_pantry.storage.models import RawProduct
 
 SEARCH_URL = "https://www.migros.ch/en/search?query={query}"
@@ -16,8 +14,8 @@ CARDS_ENDPOINT = "product-display/public/v4/product-cards"
 class MigrosScraper(Scraper):
     store_name = "Migros"
 
-    def fetch(self, browser: Browser, category: Category) -> list[RawProduct]:
-        page = browser.new_page()
+    def fetch(self, ctx: FetchContext, category: Category) -> list[RawProduct]:
+        page = ctx.browser().new_page()
         captured: list[dict] = []
 
         def on_response(response):
