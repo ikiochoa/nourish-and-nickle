@@ -29,18 +29,40 @@ def ctx_for(handler) -> FetchContext:
     return FetchContext(httpx.Client(transport=httpx.MockTransport(handler)), allow_browser=False)
 
 
+LIDL_TILE = """
+<li class="item product product-item"><div class="product-item-info">
+ <div class="product details product-item-details">
+  <a href="https://sortiment.lidl.ch/de/catalog/product/view/id/{id}/s/x/" class="product-item-link">
+   <strong class="product name product-item-name"> {name} </strong></a>
+  <div class="price-box price-final_price" data-role="priceBox" data-product-id="{id}">
+   <span class="pricefield"><span class="pricefield__body">
+    <strong class="pricefield__price" itemprop="price" content="{price}">1<span>.</span><span>49</span></strong>
+   </span><span class="pricefield__footer">{footer}</span></span>
+  </div>
+ </div>
+</div></li>
+"""
+
+
 def test_lidl():
-    item = {
-        "type": "product",
-        "title": "Tofu natur",
-        "url": "https://sortiment.lidl.ch/de/tofu-natur",
-        "price": '<strong class="pricefield__price" content="1.49">1.49</strong>'
-        '<span class="pricefield__footer">pro 2x200g | 100g = 0.37 CHF</span>',
-    }
-    other = {"type": "category", "title": "Tofu"}
-    ctx = ctx_for(lambda req: httpx.Response(200, json=[item, other]))
-    [p] = LidlScraper().fetch(ctx, TOFU)
-    assert (p.raw_name, p.price_chf, p.package_qty, p.package_unit) == ("Tofu natur", 1.49, 400.0, "g")
+    tiles = [
+        LIDL_TILE.format(id=1, name="Bio Tofu Classic", price="1.49", footer="pro 2x200g | 100g = 0.37 CHF"),
+        LIDL_TILE.format(id=2, name="Its vegic Bio Tofu", price="3.65", footer="pro 230g, 260g | 100g = 1.59 CHF"),
+        # Lidl's fuzzy fallback for "tofu"; the keyword filter drops it.
+        LIDL_TILE.format(id=3, name="Toffee & Nuts", price="1.59", footer="pro 125g | 100g = 1.27 CHF"),
+    ]
+    page = f'<ol class="products list items product-items">{"".join(tiles)}</ol>'
+
+    def handler(req):
+        assert req.url.params["q"] == "Tofu"
+        return httpx.Response(200, text=page)
+
+    products = LidlScraper().fetch(ctx_for(handler), TOFU)
+    assert [(p.raw_name, p.price_chf, p.package_qty, p.package_unit) for p in products] == [
+        ("Bio Tofu Classic", 1.49, 400.0, "g"),
+        ("Its vegic Bio Tofu", 3.65, 230.0, "g"),
+    ]
+    assert products[0].url == "https://sortiment.lidl.ch/de/catalog/product/view/id/1/s/x/"
 
 
 def _denner_record(name, subline, price, url):
