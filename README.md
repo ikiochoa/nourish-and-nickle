@@ -110,9 +110,12 @@ redeploys the app. It can also be started by hand from the repo's Actions tab.
 Migros needs a browser, so the cloud run keeps its last published prices;
 refresh them from a laptop. The app shows a "prices as of" date per store.
 
-Refresh the online prices (including Migros) from a laptop:
+Refresh the online prices (including Migros) from a laptop. Run every store,
+not just `--store Migros`: the published snapshot is replaced by the laptop's
+DB, so the other stores need to be just as fresh in it.
 
 ```bash
+git pull
 .venv/bin/python -m swiss_pantry.pipeline
 .venv/bin/python scripts/publish_snapshot.py
 git add snapshot/pantry.db && git commit -m "Refresh prices" && git push
