@@ -22,6 +22,8 @@ from swiss_pantry.pricing.normalize import parse_package_size, price_per_unit, u
         ("4 Stück", (4.0, "piece")),
         ("", (None, None)),
         ("ohne Angabe", (None, None)),
+        ("Tofu Nat. geräuchert", (None, None)),
+        ("Bio-Tofu, 2 x 200 g", (400.0, "g")),
     ],
 )
 def test_parse_package_size(text, expected):

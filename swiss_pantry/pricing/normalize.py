@@ -2,9 +2,11 @@ from __future__ import annotations
 import re
 from typing import Optional
 
-# Matches things like "500g", "1kg", "1l", "330ml", "6x9 rolls", "2x400g"
+# Matches things like "500g", "1kg", "1l", "330ml", "6x9 rolls", "2x400g".
+# The amount must start with a digit, or a stray "." before a word starting
+# with g or l ("Nat. geräuchert") would read as a quantity.
 _QTY_RE = re.compile(
-    r"(?:(?P<multiplier>\d+)\s*x\s*)?(?P<amount>[\d.,]+)\s*(?P<unit>kg|g|l|ml|rolls?|stk\.?|st(?:ü|u)ck|pieces?)",
+    r"(?:(?P<multiplier>\d+)\s*x\s*)?(?P<amount>\d[\d.,]*)\s*(?P<unit>kg|g|l|ml|rolls?|stk\.?|st(?:ü|u)ck|pieces?)",
     re.IGNORECASE,
 )
 

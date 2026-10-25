@@ -72,10 +72,11 @@ def _denner_record(name, subline, price, url):
 
 def test_denner_reads_both_search_modes_and_dedupes():
     tofu = _denner_record("Denner Tofu bio", "nature, 310 g", "2.95", "/de/tofu-bio")
+    tofu_autocomplete = {**tofu, "sku": "12345"}
     smoked = _denner_record("Räuchertofu", "200 g", "3.50", "/de/raeuchertofu")
     sausage = _denner_record("Tofuwurst", "200 g", "3.95", "/de/tofuwurst")
     responses = {
-        "autocomplete": {"items": [tofu, sausage]},
+        "autocomplete": {"items": [tofu_autocomplete, sausage]},
         "overview": {"blocks": {"searches": [{"blockName": "products", "slots": [{"item": tofu}, {"item": smoked}]}]}},
     }
     modes = []

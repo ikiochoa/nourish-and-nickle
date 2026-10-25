@@ -76,7 +76,9 @@ class DennerScraper(Scraper):
         seen = set()
         for record in records:
             attrs = record.get("attributeInfo") or []
-            key = record.get("sku") or _attr(attrs, "articleId") or _attr(attrs, "itemUrl")
+            # The two modes don't carry the same id fields, so dedupe on what
+            # the shopper sees: name and pack size.
+            key = (_attr(attrs, "name"), _attr(attrs, "nameSubline"))
             if key in seen:
                 continue
             seen.add(key)
