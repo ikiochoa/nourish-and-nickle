@@ -3,3 +3,6 @@ beautifulsoup4>=4.12
 httpx>=0.27
 PyYAML>=6.0
 streamlit>=1.37
+# pandas 3 turns missing text into NaN instead of None, which the table
+# rendering doesn't expect yet.
+pandas>=2.0,<3

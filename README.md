@@ -82,6 +82,28 @@ Run the app:
 .venv/bin/streamlit run swiss_pantry/app.py
 ```
 
+## Online version
+
+The hosted app runs on [Streamlit Community Cloud](https://share.streamlit.io)
+from `streamlit_app.py`. The scrapers can't run there (Migros needs a headed
+browser), so it serves `snapshot/pantry.db`, a read-only copy of the working
+DB that is committed to the repo. Hosted, "Hide from this category" is not
+shown, so visitors can't change the data for everyone.
+
+Refresh the online prices after a scrape:
+
+```bash
+.venv/bin/python -m swiss_pantry.pipeline
+.venv/bin/python scripts/publish_snapshot.py
+git add snapshot/pantry.db && git commit -m "Refresh prices" && git push
+```
+
+The app redeploys on push. The snapshot drops hidden products and the raw
+store responses, which keeps it around 0.5 MB.
+
+First-time setup: sign in to Streamlit Community Cloud with GitHub, choose
+**Create app**, pick this repo, branch `main` and main file `streamlit_app.py`.
+
 ## Adding a product category
 
 Add an entry to `config/categories.yaml`. `keywords_include` / `keywords_exclude`
@@ -99,6 +121,9 @@ swiss_pantry/health/         Open Food Facts client, additive risk, scoring
 swiss_pantry/pricing/        pack-size parsing and per-unit price
 swiss_pantry/app.py          Streamlit UI
 swiss_pantry/ui.py           comparison table rendering (sticky columns)
+streamlit_app.py             entry point for the hosted app
+snapshot/pantry.db           published read-only copy of the data
+scripts/publish_snapshot.py  refreshes snapshot/pantry.db
 ```
 
 ## Notes and limitations

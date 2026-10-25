@@ -6,6 +6,9 @@ from pathlib import Path
 from swiss_pantry.storage.models import ScoredProduct
 
 DB_PATH = Path(__file__).resolve().parents[2] / "data" / "pantry.db"
+# Published copy of DB_PATH, committed to the repo so the hosted app has data
+# to show without running any scraper (see scripts/publish_snapshot.py).
+SNAPSHOT_PATH = Path(__file__).resolve().parents[2] / "snapshot" / "pantry.db"
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS products (
@@ -52,6 +55,14 @@ def get_connection() -> sqlite3.Connection:
     conn.row_factory = sqlite3.Row
     conn.execute(SCHEMA)
     conn.execute(EXCLUSIONS_SCHEMA)
+    return conn
+
+
+def get_snapshot_connection() -> sqlite3.Connection:
+    """Read-only, so the hosted app can never write to the published data -
+    and visitors can't hide products for everyone else."""
+    conn = sqlite3.connect(f"file:{SNAPSHOT_PATH}?mode=ro", uri=True)
+    conn.row_factory = sqlite3.Row
     return conn
 
 
