@@ -106,17 +106,25 @@ def test_aldi():
             "sku": "000000000000123456",
             "urlSlugText": "my-vay-tofu-natur",
         },
+        {
+            "name": "BIO Tofu, geräuchert",
+            "brandName": "BIO",
+            "sellingSize": None,
+            "price": {"amountRelevantDisplay": "CHF 1.45", "comparisonDisplay": "CHF 0.40/100 g"},
+        },
         {"name": "Sojasauce", "brandName": "ASIA", "sellingSize": "150 ml", "price": {"amountRelevantDisplay": "CHF 1.99"}},
     ]
 
     def handler(req):
         assert req.url.params["q"] == "Tofu"
-        return httpx.Response(200, json={"data": data, "meta": {"pagination": {"totalCount": 2}}})
+        return httpx.Response(200, json={"data": data, "meta": {"pagination": {"totalCount": 3}}})
 
-    [p] = AldiScraper().fetch(ctx_for(handler), TOFU)
+    p, smoked = AldiScraper().fetch(ctx_for(handler), TOFU)
     assert (p.raw_name, p.brand, p.price_chf, p.package_qty, p.package_unit) == (
         "MY VAY Tofu Natur", "MY VAY", 1.09, 500.0, "g"
     )
+    # No sellingSize: the pack size is worked out from Aldi's unit price.
+    assert (smoked.raw_name, smoked.package_qty, smoked.package_unit) == ("BIO Tofu, geräuchert", 362.0, "g")
     assert p.url == "https://www.aldi-suisse.ch/de/produkt/my-vay-tofu-natur-000000000000123456"
 
 

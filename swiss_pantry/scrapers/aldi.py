@@ -27,6 +27,28 @@ def _price(record: dict) -> float | None:
     return float(match.group().replace(",", ".")) if match else None
 
 
+def _size_from_unit_price(record: dict, price: float) -> tuple[float | None, str | None]:
+    """Some products have no sellingSize, but every price comes with Aldi's
+    own unit price, e.g. "CHF 0.36/100 g". Work the pack size back out from
+    it, so the unit price shown is exactly Aldi's. The result is approximate
+    (the unit price is rounded to the centime), hence rounded to the gram."""
+    display = ((record.get("price") or {}).get("comparisonDisplay") or "").replace("\xa0", " ")
+    if "/" not in display:
+        return None, None
+    amount_text, per_text = display.split("/", 1)
+    match = PRICE_RE.search(amount_text)
+    per_text = per_text.strip()
+    if not per_text[:1].isdigit():
+        per_text = f"1 {per_text}"  # "CHF 2.90/kg"
+    per_qty, unit = parse_package_size(per_text)
+    if not match or not per_qty or unit not in ("g", "ml"):
+        return None, None
+    per_price = float(match.group().replace(",", "."))
+    if per_price <= 0:
+        return None, None
+    return float(round(price / per_price * per_qty)), unit
+
+
 class AldiScraper(Scraper):
     store_name = "Aldi"
 
@@ -68,6 +90,8 @@ class AldiScraper(Scraper):
             if not matches_category(name, category):
                 continue
             qty, unit = parse_package_size(record.get("sellingSize") or name)
+            if qty is None:
+                qty, unit = _size_from_unit_price(record, price)
             sku = record.get("sku")
             slug = record.get("urlSlugText")
             products.append(
