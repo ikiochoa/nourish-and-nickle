@@ -1,0 +1,7 @@
+# Nourish and Nickle brand green. Separate light and dark sections keep the
+# viewer's light/dark preference working (a plain [theme] would force light).
+[theme.light]
+primaryColor = "#2f7d57"
+
+[theme.dark]
+primaryColor = "#4fb381"

@@ -1,0 +1,181 @@
+/* Colours come from the Streamlit theme (--st-*), so the table follows the
+   app's light or dark mode; the fallbacks are the light theme. */
+:host, .nn-root {
+  --nn-bg: var(--st-background-color, #ffffff);
+  --nn-head: var(--st-secondary-background-color, #f3f5f2);
+  --nn-text: var(--st-text-color, #1f2a24);
+  --nn-border: var(--st-dataframe-border-color, var(--st-border-color, #e2e6e1));
+  --nn-muted: color-mix(in srgb, var(--nn-text) 50%, transparent);
+  --nn-accent: var(--st-primary-color, #2f7d57);
+  --nn-zebra: color-mix(in srgb, var(--nn-text) 2.5%, var(--nn-bg));
+  --nn-hover: color-mix(in srgb, var(--nn-accent) 8%, var(--nn-bg));
+  --nn-cheap: color-mix(in srgb, #e0a100 20%, var(--nn-bg));
+  --nn-cheap-strong: #b07d00;
+  --nn-healthy: color-mix(in srgb, #2e9e5b 20%, var(--nn-bg));
+  --nn-healthy-strong: #1f7a44;
+  font-family: var(--st-font, "Source Sans Pro", sans-serif);
+  color: var(--nn-text);
+}
+
+.nn-root.is-resizing, .nn-root.is-resizing * { cursor: col-resize !important; user-select: none; }
+
+.nn-wrap {
+  overflow: auto;
+  max-height: 70vh;
+  border: 1px solid var(--nn-border);
+  border-radius: 12px;
+  background: var(--nn-bg);
+}
+
+.nn-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-size: 0.86rem;
+}
+
+.nn-table th, .nn-table td {
+  padding: 0.5rem 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--nn-border);
+  background: var(--nn-bg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.nn-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--nn-head);
+  font-weight: 600;
+  padding-right: 0.9rem;
+  border-bottom: 2px solid var(--nn-border);
+}
+
+.nn-table .nn-sticky { position: sticky; z-index: 2; }
+.nn-table thead th.nn-sticky { z-index: 4; }
+.nn-table .nn-last-pin { box-shadow: 4px 0 6px -4px rgba(0, 0, 0, 0.25); }
+
+.nn-table tbody tr:nth-child(even) td { background: var(--nn-zebra); }
+.nn-table tbody tr { cursor: pointer; }
+.nn-table tbody tr:hover td { background: var(--nn-hover); }
+
+/* Highlights: cheapest per unit in amber, best health score in green. A row
+   that is both stays green, with both colour stripes by its list button. */
+.nn-table tbody tr.is-cheapest td { background: var(--nn-cheap); }
+.nn-table tbody tr.is-healthiest td { background: var(--nn-healthy); }
+.nn-table tbody tr.is-cheapest td.nn-action { box-shadow: inset 4px 0 0 var(--nn-cheap-strong); }
+.nn-table tbody tr.is-healthiest td.nn-action { box-shadow: inset 4px 0 0 var(--nn-healthy-strong); }
+.nn-table tbody tr.is-cheapest.is-healthiest td.nn-action {
+  box-shadow: inset 4px 0 0 var(--nn-cheap-strong), inset 8px 0 0 var(--nn-healthy-strong);
+}
+
+/* Full text of a row on click. */
+.nn-table tbody tr.is-expanded td { white-space: normal; overflow-wrap: anywhere; }
+.nn-table tbody tr.is-expanded td.nn-long { line-height: 1.4; }
+
+.nn-th { display: flex; align-items: center; gap: 0.3rem; }
+.nn-th-label { overflow: hidden; text-overflow: ellipsis; flex: 1 1 auto; }
+
+.nn-pin {
+  flex: none;
+  display: inline-flex;
+  padding: 2px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--nn-muted);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+.nn-table th:hover .nn-pin, .nn-pin:focus-visible { opacity: 1; }
+.nn-pin.is-on { opacity: 1; color: var(--nn-accent); }
+.nn-pin:hover { background: color-mix(in srgb, var(--nn-accent) 14%, transparent); color: var(--nn-accent); }
+/* Touch screens have no hover, so always show the pins there. */
+@media (hover: none) { .nn-pin { opacity: 1; } }
+
+.nn-resize {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  touch-action: none;
+}
+.nn-resize::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  right: 3px;
+  width: 2px;
+  height: 50%;
+  border-radius: 1px;
+  background: var(--nn-border);
+}
+.nn-resize:hover::after { background: var(--nn-accent); }
+
+.nn-action { text-align: center !important; padding: 0.35rem 0.2rem !important; }
+.nn-table thead th.nn-action { font-size: 0.72rem; color: var(--nn-muted); padding-top: 0.6rem !important; }
+
+.nn-add, .nn-hide {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+.nn-add {
+  border: 1.5px solid var(--nn-accent);
+  background: transparent;
+  color: var(--nn-accent);
+  font-weight: 700;
+}
+.nn-add:hover { background: color-mix(in srgb, var(--nn-accent) 14%, transparent); }
+.nn-add.is-on { background: var(--nn-accent); color: #ffffff; }
+.nn-add:disabled, .nn-hide:disabled { opacity: 0.5; cursor: progress; }
+.nn-hide {
+  margin-left: 4px;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  font-size: 0.85rem;
+  border: 0;
+  background: transparent;
+  color: var(--nn-muted);
+}
+.nn-hide:hover { color: #c0392b; }
+
+.nn-num { text-align: right !important; font-variant-numeric: tabular-nums; }
+.nn-th { justify-content: flex-start; }
+.nn-muted { color: var(--nn-muted); font-style: italic; }
+.nn-long .nn-text { color: color-mix(in srgb, var(--nn-text) 85%, transparent); }
+
+.nn-pill { padding: 0.1rem 0.55rem; border-radius: 999px; font-weight: 700; font-size: 0.78rem; }
+.nn-grade-A { color: #0f6b32; background: #d3f2de; }
+.nn-grade-B { color: #4a7c15; background: #e6f4cd; }
+.nn-grade-C { color: #8a6100; background: #fbeec6; }
+.nn-grade-D { color: #a4500b; background: #fbe0cb; }
+.nn-grade-E { color: #9d2019; background: #fad9d6; }
+
+.nn-link { color: var(--st-link-color, #2f6feb); text-decoration: none; }
+.nn-link:hover { text-decoration: underline; }
+
+.nn-badges { display: inline-flex; gap: 0.25rem; margin-right: 0.35rem; vertical-align: 1px; }
+.nn-badge {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 0.08rem 0.4rem;
+  border-radius: 4px;
+  color: #ffffff;
+}
+.nn-badge-cheap { background: var(--nn-cheap-strong); }
+.nn-badge-healthy { background: var(--nn-healthy-strong); }

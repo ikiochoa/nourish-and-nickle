@@ -1,13 +1,16 @@
 """Presentation layer for the browse table.
 
-Streamlit's own data grid is canvas-based and (on the version this project is
-pinned to by Python 3.8) cannot freeze columns, so the comparison table is
-rendered as plain HTML where `position: sticky` does the job - and lets the
-user pick which columns stay anchored while scrolling sideways.
+The comparison table is a small custom component (st.components.v2, Streamlit
+1.51+): pin icons in the headers, drag-to-resize columns, click a row for its
+full text, and a per-row button that adds the product to the shopping list.
+Older Streamlit installs (e.g. on Python 3.8) don't have v2 components, so
+they fall back to `render_table`, a static HTML table with the same columns.
 """
 from __future__ import annotations
 
 import html
+from pathlib import Path
+
 
 NO_DATA = "No data"
 
@@ -141,4 +144,41 @@ def render_table(df, columns: list[str], pinned: list[str], numeric_cols: set,
         + "</tr></thead><tbody>"
         + "".join(body)
         + "</tbody></table></div>"
+    )
+
+
+_COMPONENT_DIR = Path(__file__).parent / "table_component"
+try:
+    from streamlit.components import v2 as _components_v2
+except ImportError:
+    _interactive_table = None
+else:
+    _interactive_table = _components_v2.component(
+        "nourish_product_table",
+        css=(_COMPONENT_DIR / "table.css").read_text(encoding="utf-8"),
+        js=(_COMPONENT_DIR / "table.js").read_text(encoding="utf-8"),
+    )
+
+HAS_INTERACTIVE_TABLE = _interactive_table is not None
+
+
+def interactive_table(*, columns: list[dict], rows: list[dict], default_pinned: list[str],
+                      product_column: str, editable: bool, key: str):
+    """Mount the interactive table. Returns the component result, whose
+    `toggle_cart` / `hide` attributes hold a row id on the run after a click.
+
+    `columns` are {"name", "kind"} with kind one of text, product, num, long,
+    grade, link. Each row is {"id", "cells", "cheapest", "healthiest", "in_cart"}.
+    """
+    return _interactive_table(
+        data={
+            "columns": columns,
+            "rows": rows,
+            "default_pinned": default_pinned,
+            "product_column": product_column,
+            "editable": editable,
+        },
+        key=key,
+        on_toggle_cart_change=lambda: None,
+        on_hide_change=lambda: None,
     )

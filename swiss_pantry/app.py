@@ -17,7 +17,7 @@ from swiss_pantry.storage.db import (
     get_snapshot_connection,
 )
 
-st.set_page_config(page_title="Swiss Pantry", layout="wide", page_icon="🛒")
+st.set_page_config(page_title="Nourish and Nickle", layout="wide", page_icon="🥕")
 
 if "cart" not in st.session_state:
     st.session_state.cart = {}
@@ -47,10 +47,32 @@ NUTRITION_FIELDS = [
 st.markdown(
     """
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
       div[data-testid="stMetricValue"] { font-size: 1.35rem; }
       .sp-title { font-size:1.6rem; font-weight:700; margin:0.2rem 0 0.1rem 0; }
       .sp-sub { color:#8b949e; font-size:0.85rem; margin-bottom:0.6rem; }
+      .nn-hero { display:flex; align-items:center; gap:1rem; padding:1.1rem 1.4rem;
+                 margin:0 0 1rem 0; border-radius:16px; color:#fdfbf4;
+                 background: radial-gradient(circle at 96% 10%, rgba(243,198,90,0.35), transparent 28%),
+                             linear-gradient(120deg, #17452f 0%, #245f43 50%, #2f7d57 100%);
+                 box-shadow: 0 6px 18px -10px rgba(23,69,47,0.6); }
+      .nn-hero-mark { font-size:2.3rem; line-height:1; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2)); }
+      .nn-hero h1 { font-family:'Fraunces', Georgia, serif; font-weight:700; font-size:2.1rem;
+                    letter-spacing:-0.01em; margin:0; padding:0; color:#fdfbf4; line-height:1.1; }
+      .nn-hero h1 .nn-amp { color:#f3c65a; font-style:italic; font-weight:600; }
+      .nn-hero p { margin:0.25rem 0 0 0; font-size:0.95rem; opacity:0.88; }
+      .nn-legend { display:flex; flex-wrap:wrap; gap:0.9rem; font-size:0.85rem; margin:0.2rem 0 0.5rem 0;
+                   color: var(--text-color, inherit); opacity:0.85; }
+      .nn-legend span { display:inline-flex; align-items:center; gap:0.35rem; }
+      .nn-swatch { width:0.85rem; height:0.85rem; border-radius:3px; display:inline-block; }
     </style>
+    <div class="nn-hero">
+      <div class="nn-hero-mark">🥕</div>
+      <div>
+        <h1>Nourish <span class="nn-amp">and</span> Nickle</h1>
+        <p>Healthy groceries, fair prices: Swiss supermarkets compared by health score and price per gram.</p>
+      </div>
+    </div>
     """,
     unsafe_allow_html=True,
 )
@@ -94,6 +116,117 @@ def load_category_df(category_id: str) -> pd.DataFrame:
     return pd.DataFrame([dict(r) for r in rows])
 
 
+def add_to_cart(row) -> None:
+    st.session_state.cart[int(row["id"])] = {
+        "Store": row["Store"], "Product": row["Product"],
+        "Brand": row["Brand"], "Price CHF": float(row["Price CHF"]),
+    }
+
+
+def column_kind(col: str, unit_label: str) -> str:
+    if col == "Product":
+        return "product"
+    if col == "Grade":
+        return "grade"
+    if col == "Source":
+        return "link"
+    if col in ("Why", "Ingredients"):
+        return "long"
+    if col in {"Price CHF", unit_label, "Score"} | {c for c, _ in NUTRITION_FIELDS}:
+        return "num"
+    return "text"
+
+
+def render_interactive_table(df: pd.DataFrame, table_cols: list[str], unit_label: str,
+                             default_pinned: list[str]) -> None:
+    st.markdown(
+        '<div class="nn-legend">'
+        '<span><i class="nn-swatch" style="background:#e0a100"></i>Lowest price per '
+        f'{unit_label.split("/")[1]}</span>'
+        '<span><i class="nn-swatch" style="background:#2e9e5b"></i>Best health score</span>'
+        "<span>＋ adds to your shopping list · click a row for its full text · "
+        "drag a header edge to resize · 📌 keeps a column in view</span>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
+    by_id = {int(r["id"]): r for _, r in df.iterrows()}
+    rows = []
+    for row_id, r in by_id.items():
+        cells = {}
+        for col in table_cols:
+            value = r[col]
+            cells[col] = None if not isinstance(value, str) and pd.isna(value) else str(value)
+        rows.append({
+            "id": row_id,
+            "cells": cells,
+            "cheapest": bool(r["_cheapest"]),
+            "healthiest": bool(r["_healthiest"]),
+            "in_cart": row_id in st.session_state.cart,
+        })
+    result = ui.interactive_table(
+        columns=[{"name": c, "kind": column_kind(c, unit_label)} for c in table_cols],
+        rows=rows,
+        default_pinned=default_pinned,
+        product_column="Product",
+        editable=not read_only,
+        key=f"products_{selected_id}",
+    )
+    toggled, hidden = result.toggle_cart, result.hide
+    if toggled is not None and int(toggled) in by_id:
+        row = by_id[int(toggled)]
+        if int(toggled) in st.session_state.cart:
+            del st.session_state.cart[int(toggled)]
+            st.toast(f"Removed {row['Product']} from your list")
+        else:
+            add_to_cart(row)
+            st.toast(f"Added {row['Product']} ({row['Store']}) to your list", icon="🛒")
+        st.rerun()
+    if hidden is not None and not read_only and int(hidden) in by_id:
+        row = by_id[int(hidden)]
+        exclude_product(conn, row["Store"], selected_id, row["Product"])
+        st.session_state.cart.pop(int(hidden), None)
+        st.rerun()
+
+
+def render_static_table(df: pd.DataFrame, table_cols: list[str], unit_label: str,
+                        default_pinned: list[str]) -> None:
+    """For Streamlit installs without v2 components: the read-only HTML table
+    plus list pickers for adding and hiding."""
+    pinned = st.multiselect(
+        "Keep visible while scrolling sideways",
+        options=["Store", "Product", "Brand", "Size", "Price CHF", unit_label, "Grade"],
+        default=default_pinned,
+    )
+    st.markdown(
+        ui.render_table(
+            df,
+            columns=table_cols,
+            pinned=pinned,
+            numeric_cols={"Price CHF", unit_label, "Score"} | {c for c, _ in NUTRITION_FIELDS},
+            long_cols={"Why", "Ingredients"},
+            html_cols={"Grade": ui.grade_pill, "Source": ui.source_link},
+        ),
+        unsafe_allow_html=True,
+    )
+    left, right = (st.container(), None) if read_only else st.columns(2)
+    labels = {f"{r['Store']} — {r['Product']}": int(r["id"]) for _, r in df.iterrows()}
+    with left:
+        to_add = st.multiselect("Add to shopping list", options=list(labels))
+        if st.button("Add selected", use_container_width=True, disabled=not to_add):
+            for label in to_add:
+                add_to_cart(df[df["id"] == labels[label]].iloc[0])
+            st.rerun()
+    if right is not None:
+        with right:
+            to_hide = st.multiselect("Hide from this category", options=list(labels))
+            if st.button("Hide selected", use_container_width=True, disabled=not to_hide):
+                for label in to_hide:
+                    row = df[df["id"] == labels[label]].iloc[0]
+                    exclude_product(conn, row["Store"], selected_id, row["Product"])
+                    st.session_state.cart.pop(labels[label], None)
+                st.rerun()
+
+
 tab_browse, tab_list = st.tabs(["Compare", "Shopping list"])
 
 with tab_browse:
@@ -134,7 +267,8 @@ with tab_browse:
             st.info("Nothing to show. Run `python -m swiss_pantry.pipeline` or widen the filters.")
     else:
         rated = int(df["health_score"].notna().sum())
-        cheapest = df["price_per_unit"].min()
+        # A unit price of 0 is a pack-size parsing error upstream, not a bargain.
+        cheapest = df.loc[df["price_per_unit"] > 0, "price_per_unit"].min()
         best_grade_row = df.loc[df["health_score"].idxmax()] if rated else None
 
         c1, c2, c3, c4 = st.columns(4)
@@ -161,6 +295,15 @@ with tab_browse:
                 ),
                 axis=1,
             )
+
+        # Highlights are for the rows on screen: this category, current filters.
+        # Ties all get highlighted, unless every row ties (e.g. fresh produce
+        # all scores 100), where a highlight would single nothing out.
+        df["_cheapest"] = df["price_per_unit"].notna() & (df["price_per_unit"] == cheapest)
+        df["_healthiest"] = df["health_score"].notna() & (df["health_score"] == df["health_score"].max())
+        for flag in ("_cheapest", "_healthiest"):
+            if len(df) > 1 and df[flag].all():
+                df[flag] = False
 
         nutrition_df = pd.DataFrame(df["off_raw"].apply(nutrition_row).tolist(), index=df.index)
         df = pd.concat([df, nutrition_df], axis=1)
@@ -191,54 +334,11 @@ with tab_browse:
         base_cols = ["Store", "Product", "Brand", "Size", "Price CHF", unit_label]
         table_cols = base_cols + ["Grade", "Score"] + [c for c, _ in NUTRITION_FIELDS] + ["Why", "Ingredients", "Source"]
 
-        pinned = st.multiselect(
-            "Keep visible while scrolling sideways",
-            options=base_cols + ["Grade"],
-            default=["Store", "Product"],
-            help="These columns stay frozen on the left, so you always know which product a row belongs to.",
-        )
-
-        st.markdown(
-            ui.render_table(
-                df,
-                columns=table_cols,
-                pinned=pinned,
-                numeric_cols={"Price CHF", unit_label, "Score"} | {c for c, _ in NUTRITION_FIELDS},
-                long_cols={"Why", "Ingredients"},
-                html_cols={"Grade": ui.grade_pill, "Source": ui.source_link},
-            ),
-            unsafe_allow_html=True,
-        )
-
-        st.divider()
-        # Hiding writes to the DB, so it only exists when running locally.
-        left, right = (st.container(), None) if read_only else st.columns(2)
-        labels = {f"{r['Store']} — {r['Product']}": int(r["id"]) for _, r in df.iterrows()}
-
-        with left:
-            to_add = st.multiselect("Add to shopping list", options=list(labels))
-            if st.button("Add selected", use_container_width=True, disabled=not to_add):
-                for label in to_add:
-                    row = df[df["id"] == labels[label]].iloc[0]
-                    st.session_state.cart[labels[label]] = {
-                        "Store": row["Store"], "Product": row["Product"],
-                        "Brand": row["Brand"], "Price CHF": float(row["Price CHF"]),
-                    }
-                st.rerun()
-
-        if right is not None:
-            with right:
-                to_hide = st.multiselect(
-                    "Hide from this category",
-                    options=list(labels),
-                    help="For products that don't belong here. Persists across re-scrapes.",
-                )
-                if st.button("Hide selected", use_container_width=True, disabled=not to_hide):
-                    for label in to_hide:
-                        row = df[df["id"] == labels[label]].iloc[0]
-                        exclude_product(conn, row["Store"], selected_id, row["Product"])
-                        st.session_state.cart.pop(labels[label], None)
-                    st.rerun()
+        default_pinned = ["Store", "Product"]
+        if ui.HAS_INTERACTIVE_TABLE:
+            render_interactive_table(df, table_cols, unit_label, default_pinned)
+        else:
+            render_static_table(df, table_cols, unit_label, default_pinned)
 
         with st.expander("How is the health score calculated?"):
             st.markdown(
@@ -280,9 +380,10 @@ with tab_list:
         for store, group in cart_df.groupby("Store"):
             st.subheader(f"{store} — CHF {group['Price CHF'].sum():.2f}")
             st.dataframe(
-                group[["Product", "Brand", "Price CHF"]].reset_index(drop=True),
+                group[["Product", "Brand", "Price CHF"]].fillna({"Brand": "—"}).reset_index(drop=True),
                 hide_index=True,
                 use_container_width=True,
+                column_config={"Price CHF": st.column_config.NumberColumn(format="%.2f")},
             )
 
         if st.button("Clear list"):
