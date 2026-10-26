@@ -1,0 +1,24 @@
+# Checks the plain-HTTP scrapers against the real stores whenever a scraper
+# changes, from the same kind of cloud machine the weekly refresh runs on.
+# About ten requests per run (two categories per store).
+name: Live store check
+
+on:
+  pull_request:
+    paths:
+      - "swiss_pantry/scrapers/**"
+      - "smoke_test.py"
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python smoke_test.py --no-browser

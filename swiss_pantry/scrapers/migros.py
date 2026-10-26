@@ -2,13 +2,15 @@ from __future__ import annotations
 import json
 import urllib.parse
 
-from playwright.sync_api import Browser
-
 from swiss_pantry.matching.categorize import Category, matches_category
 from swiss_pantry.pricing.normalize import parse_package_size
-from swiss_pantry.scrapers.base import Scraper
+from swiss_pantry.scrapers.base import FetchContext, Scraper
 from swiss_pantry.storage.models import RawProduct
 
+# Migros is the one store that still needs a real (headed) browser: its JSON
+# API sits behind Cloudflare, which refuses plain HTTP requests and serves
+# headless Chromium a fake "maintenance" page. So the scheduled cloud run
+# (--no-browser) skips Migros, and its prices are refreshed from a laptop.
 SEARCH_URL = "https://www.migros.ch/en/search?query={query}"
 CARDS_ENDPOINT = "product-display/public/v4/product-cards"
 
@@ -16,8 +18,8 @@ CARDS_ENDPOINT = "product-display/public/v4/product-cards"
 class MigrosScraper(Scraper):
     store_name = "Migros"
 
-    def fetch(self, browser: Browser, category: Category) -> list[RawProduct]:
-        page = browser.new_page()
+    def fetch(self, ctx: FetchContext, category: Category) -> list[RawProduct]:
+        page = ctx.browser().new_page()
         captured: list[dict] = []
 
         def on_response(response):

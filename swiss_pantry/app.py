@@ -259,7 +259,10 @@ as *Unrated*, and the **Why** column says which kind of data was missing. Fresh
 produce is the one exception: it's treated as unprocessed by definition.
                 """
             )
-        st.caption(f"Last scraped: {df['scraped_at'].max()}")
+        # Per store, because stores are refreshed separately: the weekly cloud
+        # run skips any store that needs a real browser.
+        as_of = pd.to_datetime(df["scraped_at"], utc=True, format="ISO8601").groupby(df["store"]).max()
+        st.caption("Prices as of: " + " · ".join(f"{s} {d:%d %b %Y}" for s, d in as_of.items()))
 
 with tab_list:
     st.markdown('<div class="sp-title">Shopping list</div>', unsafe_allow_html=True)

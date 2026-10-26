@@ -3,20 +3,22 @@ from __future__ import annotations
 import argparse
 import logging
 import shutil
+import time
 from datetime import datetime, timezone
 from typing import Optional
 
 import httpx
-from playwright.sync_api import sync_playwright
 
 from swiss_pantry.health import off_client, scoring
 from swiss_pantry.health.off_client import HealthFacts
 from swiss_pantry.matching.categorize import Category, load_categories
 from swiss_pantry.pricing.normalize import price_per_unit, units_compatible
 from swiss_pantry.scrapers.aldi import AldiScraper
+from swiss_pantry.scrapers.base import BrowserUnavailable, FetchContext, new_http_client
 from swiss_pantry.scrapers.denner import DennerScraper
 from swiss_pantry.scrapers.lidl import LidlScraper
 from swiss_pantry.scrapers.migros import MigrosScraper
+from swiss_pantry.scrapers.ottos import OttosScraper
 from swiss_pantry.storage.db import DB_PATH, get_connection, upsert_products
 from swiss_pantry.storage.models import RawProduct, ScoredProduct
 
@@ -29,7 +31,7 @@ log = logging.getLogger("pipeline")
 # (see conversation), so Coop stays manual/phase-2 for now.
 # Spar is excluded too: spar.ch has no online product catalog at all (just
 # weekly-flyer marketing content), so there's nothing there to scrape.
-SCRAPERS = [MigrosScraper(), AldiScraper(), DennerScraper(), LidlScraper()]
+SCRAPERS = [MigrosScraper(), AldiScraper(), DennerScraper(), LidlScraper(), OttosScraper()]
 
 
 def enrich(raw: RawProduct, category: Category, off_http: httpx.Client, off_cache: dict) -> ScoredProduct:
@@ -99,6 +101,10 @@ def enrich(raw: RawProduct, category: Category, off_http: httpx.Client, off_cach
 # of the usual data - this makes that loud instead.
 CONSECUTIVE_EMPTY_LIMIT = 5
 
+# Pause between store requests, to stay a light, polite visitor now that
+# plain HTTP requests no longer have a page render slowing them down.
+REQUEST_PAUSE_S = 1.0
+
 
 def backup_db() -> None:
     """Snapshot the DB before a run, so a run that goes wrong (a store
@@ -112,7 +118,11 @@ def backup_db() -> None:
     log.info("Backed up existing DB to %s", backup_path.name)
 
 
-def run(stores: Optional[list[str]] = None, category_ids: Optional[list[str]] = None) -> None:
+def run(
+    stores: Optional[list[str]] = None,
+    category_ids: Optional[list[str]] = None,
+    allow_browser: bool = True,
+) -> None:
     categories = load_categories()
     if category_ids:
         categories = [c for c in categories if c.id in category_ids]
@@ -127,26 +137,32 @@ def run(stores: Optional[list[str]] = None, category_ids: Optional[list[str]] = 
     consecutive_empty: dict[str, int] = {s.store_name: 0 for s in scrapers}
     cut_off: set[str] = set()
 
-    with sync_playwright() as pw, httpx.Client() as off_http:
-        # headless=False on purpose: Migros's bot-detection blocks plain
-        # headless Chromium with a fake "maintenance" page. Aldi works either
-        # way, so we just run everything headed for simplicity.
-        browser = pw.chromium.launch(headless=False)
+    with new_http_client() as store_http, httpx.Client() as off_http:
+        ctx = FetchContext(store_http, allow_browser=allow_browser)
         try:
             for category in categories:
                 for scraper in scrapers:
                     if scraper.store_name in cut_off:
                         continue
                     log.info("Scraping %s / %s", scraper.store_name, category.id)
+                    failed = False
                     try:
-                        raw_products = scraper.fetch(browser, category)
-                    except Exception as e:
-                        log.error("Scrape failed for %s / %s: %s", scraper.store_name, category.id, e)
+                        raw_products = scraper.fetch(ctx, category)
+                    except BrowserUnavailable:
+                        log.warning("%s needs a browser and this run has none - skipping it", scraper.store_name)
+                        cut_off.add(scraper.store_name)
                         continue
+                    except Exception as e:
+                        # Counted as an empty result below, so a store that
+                        # starts refusing requests trips the cut-off too.
+                        log.error("Scrape failed for %s / %s: %s", scraper.store_name, category.id, e)
+                        raw_products = []
+                        failed = True
+                    time.sleep(REQUEST_PAUSE_S)
                     raw_products = [p for p in raw_products if p.price_chf > 0]
                     log.info("  -> %d matches", len(raw_products))
 
-                    if raw_products:
+                    if raw_products or (scraper.sparse_range and not failed):
                         consecutive_empty[scraper.store_name] = 0
                     else:
                         consecutive_empty[scraper.store_name] += 1
@@ -166,7 +182,7 @@ def run(stores: Optional[list[str]] = None, category_ids: Optional[list[str]] = 
                     if scored:
                         upsert_products(conn, scored)
         finally:
-            browser.close()
+            ctx.close()
 
     conn.close()
     if cut_off:
@@ -178,5 +194,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Scrape Swiss supermarkets and score products.")
     parser.add_argument("--store", action="append", help="Limit to a store (repeatable), e.g. --store Migros")
     parser.add_argument("--category", action="append", help="Limit to a category id (repeatable)")
+    parser.add_argument(
+        "--no-browser",
+        action="store_true",
+        help="Never launch a browser; skip any store that would need one (for scheduled cloud runs)",
+    )
     args = parser.parse_args()
-    run(stores=args.store, category_ids=args.category)
+    run(stores=args.store, category_ids=args.category, allow_browser=not args.no_browser)
