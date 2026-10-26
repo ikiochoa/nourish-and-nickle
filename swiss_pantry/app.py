@@ -261,7 +261,7 @@ produce is the one exception: it's treated as unprocessed by definition.
             )
         # Per store, because stores are refreshed separately: the weekly cloud
         # run skips any store that needs a real browser.
-        as_of = pd.to_datetime(df["scraped_at"], utc=True, format="ISO8601").groupby(df["store"]).max()
+        as_of = pd.to_datetime(df["scraped_at"], utc=True, format="ISO8601").groupby(df["Store"]).max()
         st.caption("Prices as of: " + " · ".join(f"{s} {d:%d %b %Y}" for s, d in as_of.items()))
 
 with tab_list:
