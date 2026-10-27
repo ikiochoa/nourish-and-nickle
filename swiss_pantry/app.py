@@ -7,7 +7,7 @@ import streamlit as st
 
 from swiss_pantry import ui
 from swiss_pantry.health import scoring
-from swiss_pantry.matching.categorize import load_categories
+from swiss_pantry.matching.categorize import load_categories, matches_category
 from swiss_pantry.storage.curation import SqliteCuration, SupabaseCuration, apply_rules
 from swiss_pantry.storage.db import (
     DB_PATH,
@@ -311,10 +311,12 @@ with tab_browse:
             can_edit = False
     if not df.empty:
         df = df[[(s, n) not in hidden for s, n in zip(df["store"], df["raw_name"])]]
-    # The yaml's own excludes are re-applied here too, so a new exclude word
-    # takes effect on the published snapshot without a re-scrape.
+    # The yaml's own keywords are re-applied here too, so a keyword fix takes
+    # effect on the published snapshot without waiting for a re-scrape.
+    if not df.empty:
+        df = df[df["raw_name"].apply(lambda n: matches_category(n, category))]
     before_rules = df
-    df = apply_rules(df, category.keywords_exclude + rules)
+    df = apply_rules(df, rules)
 
     if can_edit:
         st.sidebar.header("What belongs here")

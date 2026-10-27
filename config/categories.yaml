@@ -423,8 +423,9 @@
   name: Eggs
   search_de: Eier
   search_en: Eggs
-  keywords_include: [eier, eggs, "egg "]
-  keywords_exclude: [nudeln, teigwaren, pasta, likör, liqueur, schoko, chocolate, kinder, salat, salad, mayonnaise, spätzli, nougat, ersatz, vegan]
+  # Not plain "eier": it also matches Dieter Meier wines and "Laktosefreier".
+  keywords_include: [freilandeier, freiland, bodenhaltung, "bio eier", "bio-eier", bioeier, trinkeier, "eier aus", eggs, "free range"]
+  keywords_exclude: [nudeln, teigwaren, pasta, tagliatelle, pappardelle, spaghetti, likör, liqueur, schoko, chocolate, kinder, salat, salad, mayonnaise, spätzli, nougat, ersatz, vegan, kocher, poulet, huhn, chicken]
   off_search_term: eggs
   off_category_tags: [eggs, chicken-eggs]
   unit: piece
