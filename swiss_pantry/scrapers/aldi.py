@@ -49,6 +49,30 @@ def _size_from_unit_price(record: dict, price: float) -> tuple[float | None, str
     return float(round(price / per_price * per_qty)), unit
 
 
+def _pack_size(record: dict, name: str, price: float) -> tuple[float | None, str | None]:
+    """The pack size from sellingSize (or the name), checked against Aldi's
+    unit price. sellingSize sometimes has the wrong unit, e.g. "750 kg" for
+    a 750 g bag of müsli, which made the unit price round to 0. When the two
+    disagree, a kg/g (or l/ml) mix-up is undone if that makes them agree,
+    and otherwise the size worked out from the unit price wins."""
+    qty, unit = parse_package_size(record.get("sellingSize") or name)
+    derived_qty, derived_unit = _size_from_unit_price(record, price)
+    if qty is None:
+        return derived_qty, derived_unit
+    if not derived_qty or unit != derived_unit:
+        return qty, unit
+
+    def close(a: float) -> bool:
+        return abs(a - derived_qty) <= 0.1 * derived_qty
+
+    if close(qty):
+        return qty, unit
+    for scaled in (qty / 1000, qty * 1000):
+        if close(scaled):
+            return scaled, unit
+    return derived_qty, derived_unit
+
+
 class AldiScraper(Scraper):
     store_name = "Aldi"
 
@@ -89,9 +113,7 @@ class AldiScraper(Scraper):
                 name = f"{brand} {name}"
             if not matches_category(name, category):
                 continue
-            qty, unit = parse_package_size(record.get("sellingSize") or name)
-            if qty is None:
-                qty, unit = _size_from_unit_price(record, price)
+            qty, unit = _pack_size(record, name, price)
             sku = record.get("sku")
             slug = record.get("urlSlugText")
             products.append(

@@ -113,13 +113,29 @@ def test_aldi():
             "price": {"amountRelevantDisplay": "CHF 1.45", "comparisonDisplay": "CHF 0.40/100 g"},
         },
         {"name": "Sojasauce", "brandName": "ASIA", "sellingSize": "150 ml", "price": {"amountRelevantDisplay": "CHF 1.99"}},
+        # sellingSize with the wrong unit: the unit price shows it's 750 g.
+        {
+            "name": "Tofu Würfel",
+            "brandName": "MY VAY",
+            "sellingSize": "750 kg",
+            "price": {"amountRelevantDisplay": "CHF 3.29", "comparisonDisplay": "CHF 0.44/100 g"},
+        },
+        # sellingSize that matches nothing: Aldi's unit price wins.
+        {
+            "name": "Tofu Rosso",
+            "brandName": "MY VAY",
+            "sellingSize": "50 g",
+            "price": {"amountRelevantDisplay": "CHF 2.00", "comparisonDisplay": "CHF 1.00/100 g"},
+        },
     ]
 
     def handler(req):
         assert req.url.params["q"] == "Tofu"
-        return httpx.Response(200, json={"data": data, "meta": {"pagination": {"totalCount": 3}}})
+        return httpx.Response(200, json={"data": data, "meta": {"pagination": {"totalCount": 5}}})
 
-    p, smoked = AldiScraper().fetch(ctx_for(handler), TOFU)
+    p, smoked, cubes, rosso = AldiScraper().fetch(ctx_for(handler), TOFU)
+    assert (cubes.package_qty, cubes.package_unit) == (750.0, "g")
+    assert (rosso.package_qty, rosso.package_unit) == (200.0, "g")
     assert (p.raw_name, p.brand, p.price_chf, p.package_qty, p.package_unit) == (
         "MY VAY Tofu Natur", "MY VAY", 1.09, 500.0, "g"
     )
