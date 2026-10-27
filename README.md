@@ -139,8 +139,25 @@ Locally, edits go to `data/pantry.db` and no password is needed. On the hosted
 app they go to a free [Supabase](https://supabase.com) project, because the
 hosted app's own disk is wiped on every restart. To set it up once:
 
-1. Create a Supabase project. In its **SQL Editor**, run the `SUPABASE_SETUP_SQL`
-   from `swiss_pantry/storage/curation.py`.
+1. Create a Supabase project. In its **SQL Editor**, run:
+
+   ```sql
+   create table if not exists excluded_products (
+       store text not null,
+       category text not null,
+       raw_name text not null,
+       created_at timestamptz not null default now(),
+       primary key (store, category, raw_name)
+   );
+   create table if not exists category_rules (
+       category text not null,
+       keyword text not null,
+       created_at timestamptz not null default now(),
+       primary key (category, keyword)
+   );
+   alter table excluded_products enable row level security;
+   alter table category_rules enable row level security;
+   ```
 2. From **Project Settings → API Keys**, copy the project URL and a **secret**
    key (not the publishable/anon one).
 3. In Streamlit Community Cloud, open the app's **Settings → Secrets** and add:
