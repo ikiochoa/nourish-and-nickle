@@ -401,7 +401,7 @@
   search_de: Skyr
   search_en: Skyr
   keywords_include: [skyr]
-  keywords_exclude: [drink, trink, glace, "ice cream", riegel, müsli, granola, dessert]
+  keywords_exclude: [drink, trink, glace, "ice cream", riegel, müsli, granola, dessert, brötli, brot]
   off_search_term: skyr
   off_category_tags: [skyr, yogurt, yoghurt, fermented-milk, dairy]
   unit: g
