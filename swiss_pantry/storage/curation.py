@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS category_rules (
 );
 """
 
-# Run once in the Supabase SQL editor (the README has a copy to paste). Row level security with no policies
-# means the public (anon) key can't read or write these; only the secret key
-# the app uses can.
+# Run once in the Supabase SQL editor (the README has a copy to paste). Row
+# level security with no policies means the public (anon) key can't read or
+# write these; only the secret key the app uses can.
 SUPABASE_SETUP_SQL = """
 create table if not exists excluded_products (
     store text not null,
