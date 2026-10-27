@@ -55,7 +55,7 @@ else:
     curation = None
     needs_login = False
 
-UNIT_LABEL = {"g": "CHF/100g", "ml": "CHF/100ml", "roll": "CHF/roll"}
+UNIT_LABEL = {"g": "CHF/100g", "ml": "CHF/100ml", "roll": "CHF/roll", "piece": "CHF/piece"}
 NO_DATA = ui.NO_DATA
 
 # (display column, OFF nutriments key) - all already cached in off_raw, no
@@ -91,6 +91,23 @@ st.markdown(
                    color: var(--text-color, inherit); opacity:0.85; }
       .nn-legend span { display:inline-flex; align-items:center; gap:0.35rem; }
       .nn-swatch { width:0.85rem; height:0.85rem; border-radius:3px; display:inline-block; }
+      .nn-stats { display:flex; flex-wrap:wrap; gap:0.5rem 1.8rem; margin:0.3rem 0 0.6rem 0; }
+      .nn-stats div { display:flex; flex-direction:column; }
+      .nn-stats span { font-size:0.8rem; opacity:0.7; }
+      .nn-stats b { font-size:1.35rem; font-weight:600; }
+      @media (max-width: 640px) {
+        .block-container { padding-top: 2.5rem; padding-left: 1rem; padding-right: 1rem; }
+        .nn-hero { padding:0.7rem 0.9rem; gap:0.6rem; border-radius:12px; margin-bottom:0.6rem; }
+        .nn-hero-mark { font-size:1.6rem; }
+        .nn-hero h1 { font-size:1.45rem; }
+        .nn-hero p { display:none; }
+        .nn-stats { gap:0.4rem 1.2rem; }
+        .nn-stats b { font-size:1.1rem; }
+        .nn-legend { font-size:0.8rem; gap:0.6rem; }
+        .nn-legend .nn-desktop { display:none; }
+        .nn-legend .nn-mobile { display:inline-flex; }
+      }
+      .nn-legend .nn-mobile { display:none; }
     </style>
     <div class="nn-hero">
       <div class="nn-hero-mark">🥕</div>
@@ -170,8 +187,9 @@ def render_interactive_table(df: pd.DataFrame, table_cols: list[str], unit_label
         '<span><i class="nn-swatch" style="background:#e0a100"></i>Lowest price per '
         f'{unit_label.split("/")[1]}</span>'
         '<span><i class="nn-swatch" style="background:#2e9e5b"></i>Best health score</span>'
-        "<span>＋ adds to your shopping list · click a row for its full text · "
+        '<span class="nn-desktop">＋ adds to your shopping list · click a row for its full text · '
         "drag a header edge to resize · 📌 keeps a column in view</span>"
+        '<span class="nn-mobile">Tap a product for nutrition and details</span>'
         "</div>",
         unsafe_allow_html=True,
     )
@@ -194,6 +212,7 @@ def render_interactive_table(df: pd.DataFrame, table_cols: list[str], unit_label
         rows=rows,
         default_pinned=default_pinned,
         product_column="Product",
+        card={"store": "Store", "grade": "Grade", "price": unit_label, "meta": ["Size", "Price CHF"]},
         editable=can_edit,
         key=f"products_{selected_id}",
     )
@@ -256,19 +275,21 @@ def render_static_table(df: pd.DataFrame, table_cols: list[str], unit_label: str
 tab_browse, tab_list = st.tabs(["Compare", "Shopping list"])
 
 with tab_browse:
-    st.sidebar.header("Category")
-    selected_id = st.sidebar.selectbox(
-        "Product",
+    # Category and filters sit above the results rather than in the sidebar,
+    # which on a phone hides behind a menu button.
+    pick, filters = st.columns([3, 1], vertical_alignment="bottom")
+    selected_id = pick.selectbox(
+        "Product type",
         options=sorted((c.id for c in categories), key=lambda k: cat_by_id[k].name),
         format_func=lambda k: cat_by_id[k].name,
     )
     category = cat_by_id[selected_id]
     df = load_category_df(selected_id)
 
-    st.sidebar.header("Filters")
     stores = sorted(df["store"].unique()) if not df.empty else []
-    chosen_stores = st.sidebar.multiselect("Stores", stores, default=stores)
-    rated_only = st.sidebar.checkbox("Only products with a health grade", value=False)
+    with filters.popover("Filters", use_container_width=True):
+        chosen_stores = st.multiselect("Stores", stores, default=stores)
+        rated_only = st.checkbox("Only products with a health grade", value=False)
 
     if needs_login and not st.session_state.get("can_edit"):
         with st.sidebar.expander("Edit mode"):
@@ -328,8 +349,6 @@ with tab_browse:
         if rated_only:
             df = df[df["health_score"].notna()]
 
-    st.markdown(f'<div class="sp-title">{category.name}</div>', unsafe_allow_html=True)
-
     if df.empty:
         if read_only:
             st.info("Nothing to show. Try widening the filters.")
@@ -341,11 +360,20 @@ with tab_browse:
         cheapest = df.loc[df["price_per_unit"] > 0, "price_per_unit"].min()
         best_grade_row = df.loc[df["health_score"].idxmax()] if rated else None
 
-        c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Products", len(df))
-        c2.metric("Stores", df["store"].nunique())
-        c3.metric(f"Cheapest {unit_label.split('/')[1]}", f"{cheapest:.2f}" if pd.notna(cheapest) else "—")
-        c4.metric("With a grade", f"{rated}/{len(df)}")
+        # One wrapping row of small stats instead of st.metric columns, which
+        # stack into a full screen of numbers on a phone.
+        stats = [
+            ("Products", len(df)),
+            ("Stores", df["store"].nunique()),
+            (f"Cheapest {unit_label.split('/')[1]}", f"{cheapest:.2f}" if pd.notna(cheapest) else "—"),
+            ("With a grade", f"{rated}/{len(df)}"),
+        ]
+        st.markdown(
+            '<div class="nn-stats">'
+            + "".join(f"<div><span>{label}</span><b>{value}</b></div>" for label, value in stats)
+            + "</div>",
+            unsafe_allow_html=True,
+        )
         if best_grade_row is not None:
             st.caption(
                 f"Best-scoring: **{best_grade_row['raw_name']}** ({best_grade_row['store']}) "
@@ -442,19 +470,20 @@ with tab_list:
         cart_df = pd.DataFrame(st.session_state.cart.values())
         grand_total = cart_df["Price CHF"].sum()
 
-        top = st.columns(3)
-        top[0].metric("Items", len(cart_df))
-        top[1].metric("Stores", cart_df["Store"].nunique())
-        top[2].metric("Total", f"CHF {grand_total:.2f}")
+        stats = [("Items", len(cart_df)), ("Stores", cart_df["Store"].nunique()), ("Total", f"CHF {grand_total:.2f}")]
+        st.markdown(
+            '<div class="nn-stats">'
+            + "".join(f"<div><span>{label}</span><b>{value}</b></div>" for label, value in stats)
+            + "</div>",
+            unsafe_allow_html=True,
+        )
 
+        # A tick box per item, so the list can be used in the shop on a phone.
         for store, group in cart_df.groupby("Store"):
-            st.subheader(f"{store} — CHF {group['Price CHF'].sum():.2f}")
-            st.dataframe(
-                group[["Product", "Brand", "Price CHF"]].fillna({"Brand": "—"}).reset_index(drop=True),
-                hide_index=True,
-                use_container_width=True,
-                column_config={"Price CHF": st.column_config.NumberColumn(format="%.2f")},
-            )
+            st.markdown(f"#### {store} — CHF {group['Price CHF'].sum():.2f}")
+            for item_id, item in zip(st.session_state.cart, st.session_state.cart.values()):
+                if item["Store"] == store:
+                    st.checkbox(f"{item['Product']} · CHF {item['Price CHF']:.2f}", key=f"got_{item_id}")
 
         if st.button("Clear list"):
             st.session_state.cart = {}

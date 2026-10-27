@@ -179,3 +179,46 @@
 }
 .nn-badge-cheap { background: var(--nn-cheap-strong); }
 .nn-badge-healthy { background: var(--nn-healthy-strong); }
+
+/* Phone layout: one card per product instead of the wide table. */
+.nn-cards { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.nn-card {
+  border: 1px solid var(--nn-border);
+  border-radius: 12px;
+  padding: 0.7rem 0.8rem;
+  background: var(--nn-bg);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.nn-card.is-cheapest { background: var(--nn-cheap); border-color: var(--nn-cheap-strong); }
+.nn-card.is-healthiest { background: var(--nn-healthy); border-color: var(--nn-healthy-strong); }
+
+.nn-card-top { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; }
+.nn-card-store { font-weight: 700; color: var(--nn-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+.nn-card-top .nn-badges { margin: 0; }
+.nn-card-grade { margin-left: auto; }
+
+.nn-card-title { font-weight: 600; margin: 0.25rem 0 0.45rem 0; line-height: 1.3; overflow-wrap: anywhere; }
+
+.nn-card-bottom { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+.nn-card-price { font-variant-numeric: tabular-nums; }
+.nn-card-price strong { font-size: 1.1rem; }
+.nn-card-meta { color: var(--nn-muted); }
+.nn-card-actions { display: flex; align-items: center; gap: 0.5rem; flex: none; }
+/* Finger-sized buttons. */
+.nn-card .nn-add { width: 38px; height: 38px; font-size: 1.25rem; }
+.nn-card .nn-hide { width: 32px; height: 32px; font-size: 1.1rem; margin: 0; }
+
+.nn-card-details {
+  display: none;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 0.8rem;
+  margin: 0.7rem 0 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--nn-border);
+  font-size: 0.85rem;
+}
+.nn-card.is-expanded .nn-card-details { display: grid; }
+.nn-card-details dt { color: var(--nn-muted); }
+.nn-card-details dd { margin: 0; overflow-wrap: anywhere; text-align: left !important; }

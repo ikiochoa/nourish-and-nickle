@@ -4,12 +4,16 @@
 // they stay in the browser (module memory + localStorage) and never cost a
 // rerun; only the per-row actions (add to list, hide) are sent back to Python
 // as trigger values.
+//
+// On phone-width screens the same rows render as cards instead: store, name,
+// price per unit and grade up front, everything else behind a tap.
 
 const STORAGE_KEY = "nn-table-layout-v1";
 const ACTION_WIDTH = 46;
 const ACTION_WIDTH_EDITABLE = 72;
 const MIN_WIDTH = 60;
 const DEFAULT_WIDTH = { text: 140, product: 260, num: 124, long: 340, grade: 92, link: 160 };
+const NARROW = "(max-width: 640px)";
 
 // Survives re-mounts on rerun (the module is imported once per page).
 let layout = loadLayout();
@@ -52,36 +56,36 @@ function widthOf(col) {
   return layout.widths[col.name] || DEFAULT_WIDTH[col.kind] || DEFAULT_WIDTH.text;
 }
 
-function renderCell(col, value) {
-  const td = el("td", "nn-" + col.kind);
-  if (value === null || value === undefined || value === "") {
-    td.appendChild(el("span", "nn-muted", "—"));
-    return td;
-  }
-  if (value === "No data") {
-    td.appendChild(el("span", "nn-muted", value));
-    return td;
-  }
+function cellContent(col, value) {
+  if (value === null || value === undefined || value === "") return el("span", "nn-muted", "—");
+  if (value === "No data") return el("span", "nn-muted", value);
   if (col.kind === "grade") {
-    if (value === "Unrated") {
-      td.appendChild(el("span", "nn-muted", value));
-    } else {
-      td.appendChild(el("span", "nn-pill nn-grade-" + value, value));
-    }
-    return td;
+    if (value === "Unrated") return el("span", "nn-muted", value);
+    return el("span", "nn-pill nn-grade-" + value, value);
   }
   if (col.kind === "link") {
     const a = el("a", "nn-link", "Open Food Facts ↗");
     a.href = value;
     a.target = "_blank";
     a.rel = "noopener";
-    td.appendChild(a);
-    return td;
+    return a;
   }
-  const span = el("span", "nn-text", String(value));
-  td.title = String(value);
-  td.appendChild(span);
+  return el("span", "nn-text", String(value));
+}
+
+function renderCell(col, value) {
+  const td = el("td", "nn-" + col.kind);
+  const content = cellContent(col, value);
+  if (content.className === "nn-text") td.title = String(value);
+  td.appendChild(content);
   return td;
+}
+
+function badgesFor(row) {
+  const badges = el("span", "nn-badges");
+  if (row.cheapest) badges.appendChild(el("span", "nn-badge nn-badge-cheap", "Cheapest"));
+  if (row.healthiest) badges.appendChild(el("span", "nn-badge nn-badge-healthy", "Healthiest"));
+  return badges;
 }
 
 export default function (component) {
@@ -102,6 +106,93 @@ export default function (component) {
   const root = el("div", "nn-root");
   parentElement.appendChild(root);
 
+  function actionButtons(row) {
+    const buttons = [];
+    const add = el("button", "nn-add" + (row.in_cart ? " is-on" : ""), row.in_cart ? "✓" : "+");
+    add.type = "button";
+    add.title = row.in_cart ? "On your list (click to remove)" : "Add to shopping list";
+    add.setAttribute("aria-label", add.title);
+    add.addEventListener("click", (e) => {
+      e.stopPropagation();
+      add.disabled = true;
+      setTriggerValue("toggle_cart", row.id);
+    });
+    buttons.push(add);
+    if (editable) {
+      const hide = el("button", "nn-hide", "×");
+      hide.type = "button";
+      hide.title = "Hide from this category (it doesn't belong here)";
+      hide.setAttribute("aria-label", hide.title);
+      hide.addEventListener("click", (e) => {
+        e.stopPropagation();
+        hide.disabled = true;
+        setTriggerValue("hide", row.id);
+      });
+      buttons.push(hide);
+    }
+    return buttons;
+  }
+
+  const cards = el("div", "nn-cards");
+  const card = data.card;
+  const colByName = new Map(columns.map((c) => [c.name, c]));
+
+  function renderCards() {
+    cards.replaceChildren();
+    const upFront = new Set([data.product_column, card.store, card.grade, card.price].concat(card.meta));
+    const detailCols = columns.filter((c) => !upFront.has(c.name));
+    rows.forEach((row) => {
+      const item = el("div", "nn-card");
+      if (row.cheapest) item.classList.add("is-cheapest");
+      if (row.healthiest) item.classList.add("is-healthiest");
+      if (expanded.has(row.id)) item.classList.add("is-expanded");
+
+      const top = el("div", "nn-card-top");
+      top.appendChild(el("span", "nn-card-store", row.cells[card.store]));
+      const badges = badgesFor(row);
+      if (badges.childNodes.length) top.appendChild(badges);
+      const grade = el("span", "nn-card-grade");
+      grade.appendChild(cellContent(colByName.get(card.grade), row.cells[card.grade]));
+      top.appendChild(grade);
+
+      const title = el("div", "nn-card-title", row.cells[data.product_column]);
+
+      const bottom = el("div", "nn-card-bottom");
+      const price = el("div", "nn-card-price");
+      const perUnit = row.cells[card.price];
+      if (perUnit && perUnit !== "No data") {
+        price.appendChild(el("strong", null, perUnit));
+        price.appendChild(document.createTextNode(" " + card.price));
+      } else {
+        price.appendChild(el("span", "nn-muted", "No unit price"));
+      }
+      const meta = card.meta
+        .filter((name) => row.cells[name] && row.cells[name] !== "No data")
+        .map((name) => (name.includes("CHF") ? "CHF " : "") + row.cells[name]);
+      if (meta.length) price.appendChild(el("span", "nn-card-meta", " · " + meta.join(" · ")));
+      const actions = el("div", "nn-card-actions");
+      actionButtons(row).reverse().forEach((b) => actions.appendChild(b));
+      bottom.append(price, actions);
+
+      const details = el("dl", "nn-card-details");
+      detailCols.forEach((col) => {
+        details.appendChild(el("dt", null, col.name));
+        const dd = el("dd", "nn-" + col.kind);
+        dd.appendChild(cellContent(col, row.cells[col.name]));
+        details.appendChild(dd);
+      });
+
+      item.append(top, title, bottom, details);
+      item.addEventListener("click", (e) => {
+        if (e.target.closest("a, button")) return;
+        if (expanded.has(row.id)) expanded.delete(row.id);
+        else expanded.add(row.id);
+        item.classList.toggle("is-expanded");
+      });
+      cards.appendChild(item);
+    });
+  }
+
   const wrap = el("div", "nn-wrap");
   const table = el("table", "nn-table");
   const colgroup = el("colgroup");
@@ -109,7 +200,6 @@ export default function (component) {
   const tbody = el("tbody");
   table.append(colgroup, thead, tbody);
   wrap.appendChild(table);
-  root.appendChild(wrap);
 
   function orderedColumns() {
     const pinned = layout.pinned.filter((n) => knownNames.has(n));
@@ -200,28 +290,7 @@ export default function (component) {
 
       const actionTd = el("td", "nn-action nn-sticky");
       actionTd.style.left = "0px";
-      const add = el("button", "nn-add" + (row.in_cart ? " is-on" : ""), row.in_cart ? "✓" : "+");
-      add.type = "button";
-      add.title = row.in_cart ? "On your list (click to remove)" : "Add to shopping list";
-      add.setAttribute("aria-label", add.title);
-      add.addEventListener("click", (e) => {
-        e.stopPropagation();
-        add.disabled = true;
-        setTriggerValue("toggle_cart", row.id);
-      });
-      actionTd.appendChild(add);
-      if (editable) {
-        const hide = el("button", "nn-hide", "×");
-        hide.type = "button";
-        hide.title = "Hide from this category (it doesn't belong here)";
-        hide.setAttribute("aria-label", hide.title);
-        hide.addEventListener("click", (e) => {
-          e.stopPropagation();
-          hide.disabled = true;
-          setTriggerValue("hide", row.id);
-        });
-        actionTd.appendChild(hide);
-      }
+      actionButtons(row).forEach((b) => actionTd.appendChild(b));
       tr.appendChild(actionTd);
 
       cols.forEach((col, i) => {
@@ -232,9 +301,7 @@ export default function (component) {
           if (i === pinnedCount - 1) td.classList.add("nn-last-pin");
         }
         if (col.name === data.product_column) {
-          const badges = el("span", "nn-badges");
-          if (row.cheapest) badges.appendChild(el("span", "nn-badge nn-badge-cheap", "Cheapest"));
-          if (row.healthiest) badges.appendChild(el("span", "nn-badge nn-badge-healthy", "Healthiest"));
+          const badges = badgesFor(row);
           if (badges.childNodes.length) td.prepend(badges);
         }
         tr.appendChild(td);
@@ -278,7 +345,20 @@ export default function (component) {
     window.addEventListener("pointerup", onUp);
   }
 
-  render();
+  const narrow = window.matchMedia(NARROW);
+  function show() {
+    if (narrow.matches) {
+      wrap.remove();
+      renderCards();
+      root.appendChild(cards);
+    } else {
+      cards.remove();
+      render();
+      root.appendChild(wrap);
+    }
+  }
+  show();
+  narrow.addEventListener("change", show);
 
   const saved = scrollPos.get(key);
   if (saved) {
@@ -290,6 +370,7 @@ export default function (component) {
 
   return () => {
     wrap.removeEventListener("scroll", onScroll);
+    narrow.removeEventListener("change", show);
     root.remove();
   };
 }
