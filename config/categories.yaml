@@ -39,7 +39,7 @@
   search_de: Tofu
   search_en: Tofu
   keywords_include: [tofu]
-  keywords_exclude: [curry, bowl, fertig, ready, soup, suppe, spice, gewürz, sausage, wurst, salad, salat, couscous]
+  keywords_exclude: [curry, bowl, fertig, ready, soup, suppe, spice, gewürz, sausage, wurst, salad, salat, couscous, burger, skewer, spiess, spieß, ravioli, tikka, masala, crispy, escalope, schnitzel, nugget, sauce]
   off_search_term: tofu
   off_category_tags: [tofu, meat-alternatives, meat-analogues]
   unit: g
@@ -149,7 +149,7 @@
   search_de: Quinoa
   search_en: Quinoa
   keywords_include: [quinoa]
-  keywords_exclude: [months, monate, porridge, cereal, puree, purée, squeeze, knusperscheiben, knusperknäcke, snack, bowl, penne, curry, bulgur, hipp, holle, babybio]
+  keywords_exclude: [months, monate, porridge, cereal, puree, purée, squeeze, knusperscheiben, knusperknäcke, snack, bowl, penne, curry, bulgur, hipp, holle, babybio, shampoo, maske, conditioner, spülung, l'oréal]
   off_search_term: quinoa
   off_category_tags: [quinoa, cereal, seeds]
   unit: g

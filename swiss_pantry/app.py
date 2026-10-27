@@ -1,4 +1,5 @@
 from __future__ import annotations
+import hmac
 import json
 
 import pandas as pd
@@ -7,12 +8,10 @@ import streamlit as st
 from swiss_pantry import ui
 from swiss_pantry.health import scoring
 from swiss_pantry.matching.categorize import load_categories
+from swiss_pantry.storage.curation import SqliteCuration, SupabaseCuration, apply_rules
 from swiss_pantry.storage.db import (
     DB_PATH,
     SNAPSHOT_PATH,
-    clear_exclusions,
-    count_exclusions,
-    exclude_product,
     get_connection,
     get_snapshot_connection,
 )
@@ -28,6 +27,33 @@ cat_by_id = {c.id: c for c in categories}
 # directory, so it serves the committed snapshot read-only instead.
 read_only = not DB_PATH.exists() and SNAPSHOT_PATH.exists()
 conn = get_snapshot_connection() if read_only else get_connection()
+
+
+def secret(*path: str):
+    """A value from .streamlit/secrets.toml (or the hosted app's Secrets
+    setting), or None when it isn't set - st.secrets raises if the file is
+    missing altogether."""
+    try:
+        value = st.secrets
+        for key in path:
+            value = value[key]
+        return value
+    except (KeyError, FileNotFoundError):
+        return None
+
+
+# Curation (hidden products, extra exclude keywords) goes to Supabase when the
+# app has its keys, which is how it works on the hosted app; otherwise to the
+# local working DB. With neither, the app is view-only.
+if secret("supabase", "url") and secret("supabase", "secret_key"):
+    curation = SupabaseCuration(secret("supabase", "url"), secret("supabase", "secret_key"))
+    needs_login = True
+elif not read_only:
+    curation = SqliteCuration(conn)
+    needs_login = False
+else:
+    curation = None
+    needs_login = False
 
 UNIT_LABEL = {"g": "CHF/100g", "ml": "CHF/100ml", "roll": "CHF/roll"}
 NO_DATA = ui.NO_DATA
@@ -168,7 +194,7 @@ def render_interactive_table(df: pd.DataFrame, table_cols: list[str], unit_label
         rows=rows,
         default_pinned=default_pinned,
         product_column="Product",
-        editable=not read_only,
+        editable=can_edit,
         key=f"products_{selected_id}",
     )
     toggled, hidden = result.toggle_cart, result.hide
@@ -181,9 +207,9 @@ def render_interactive_table(df: pd.DataFrame, table_cols: list[str], unit_label
             add_to_cart(row)
             st.toast(f"Added {row['Product']} ({row['Store']}) to your list", icon="🛒")
         st.rerun()
-    if hidden is not None and not read_only and int(hidden) in by_id:
+    if hidden is not None and can_edit and int(hidden) in by_id:
         row = by_id[int(hidden)]
-        exclude_product(conn, row["Store"], selected_id, row["Product"])
+        curation.hide(row["Store"], selected_id, row["Product"])
         st.session_state.cart.pop(int(hidden), None)
         st.rerun()
 
@@ -208,7 +234,7 @@ def render_static_table(df: pd.DataFrame, table_cols: list[str], unit_label: str
         ),
         unsafe_allow_html=True,
     )
-    left, right = (st.container(), None) if read_only else st.columns(2)
+    left, right = st.columns(2) if can_edit else (st.container(), None)
     labels = {f"{r['Store']} — {r['Product']}": int(r["id"]) for _, r in df.iterrows()}
     with left:
         to_add = st.multiselect("Add to shopping list", options=list(labels))
@@ -222,7 +248,7 @@ def render_static_table(df: pd.DataFrame, table_cols: list[str], unit_label: str
             if st.button("Hide selected", use_container_width=True, disabled=not to_hide):
                 for label in to_hide:
                     row = df[df["id"] == labels[label]].iloc[0]
-                    exclude_product(conn, row["Store"], selected_id, row["Product"])
+                    curation.hide(row["Store"], selected_id, row["Product"])
                     st.session_state.cart.pop(labels[label], None)
                 st.rerun()
 
@@ -244,12 +270,56 @@ with tab_browse:
     chosen_stores = st.sidebar.multiselect("Stores", stores, default=stores)
     rated_only = st.sidebar.checkbox("Only products with a health grade", value=False)
 
-    hidden_count = 0 if read_only else count_exclusions(conn, selected_id)
-    if hidden_count:
-        st.sidebar.caption(f"{hidden_count} item(s) hidden here")
-        if st.sidebar.button("Unhide all in this category"):
-            clear_exclusions(conn, selected_id)
-            st.rerun()
+    if needs_login and not st.session_state.get("can_edit"):
+        with st.sidebar.expander("Edit mode"):
+            password = st.text_input("Password", type="password")
+            if password:
+                expected = secret("admin_password") or ""
+                if expected and hmac.compare_digest(password, expected):
+                    st.session_state.can_edit = True
+                    st.rerun()
+                st.error("Wrong password")
+    can_edit = curation is not None and (not needs_login or st.session_state.get("can_edit", False))
+
+    hidden, rules = set(), []
+    if curation is not None:
+        try:
+            hidden, rules = curation.hidden(selected_id), curation.rules(selected_id)
+        except Exception as e:  # a Supabase outage shouldn't take the app down
+            st.sidebar.warning(f"Couldn't load your edits, showing the unedited list ({e.__class__.__name__}).")
+            can_edit = False
+    if not df.empty:
+        df = df[[(s, n) not in hidden for s, n in zip(df["store"], df["raw_name"])]]
+    # The yaml's own excludes are re-applied here too, so a new exclude word
+    # takes effect on the published snapshot without a re-scrape.
+    before_rules = df
+    df = apply_rules(df, category.keywords_exclude + rules)
+
+    if can_edit:
+        st.sidebar.header("What belongs here")
+        st.sidebar.caption(
+            f"Hide a product with its × button. Or hide every {category.name.lower()} "
+            "product whose name contains a word:"
+        )
+        with st.sidebar.form("add_rule", clear_on_submit=True, border=False):
+            word = st.text_input("Word", placeholder="e.g. burger", label_visibility="collapsed")
+            if st.form_submit_button("Hide products with this word") and word.strip():
+                curation.add_rule(selected_id, word)
+                st.rerun()
+        for kw in rules:
+            n = len(before_rules) - len(apply_rules(before_rules, [kw]))
+            if st.sidebar.button(f"✕ “{kw}” · hides {n}", key=f"rule_{kw}", help="Stop hiding this word"):
+                curation.remove_rule(selected_id, kw)
+                st.rerun()
+        if hidden:
+            with st.sidebar.expander(f"{len(hidden)} hidden product(s)"):
+                for store, name in sorted(hidden):
+                    if st.button(f"Unhide · {store}: {name}", key=f"unhide_{store}_{name}"):
+                        curation.unhide(store, selected_id, name)
+                        st.rerun()
+                if st.button("Unhide all"):
+                    curation.unhide_all(selected_id)
+                    st.rerun()
 
     unit_label = UNIT_LABEL[category.unit]
 
