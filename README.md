@@ -100,8 +100,8 @@ Run the app:
 The hosted app runs on [Streamlit Community Cloud](https://share.streamlit.io)
 from `streamlit_app.py`. The scrapers can't run there (Migros needs a headed
 browser), so it serves `snapshot/pantry.db`, a read-only copy of the working
-DB that is committed to the repo. Hosted, "Hide from this category" is not
-shown, so visitors can't change the data for everyone.
+DB that is committed to the repo. Visitors can only look; editing what
+belongs in a category needs a password (see below).
 
 A GitHub Actions job (`.github/workflows/refresh-prices.yml`) refreshes the
 snapshot every Monday: it starts from `snapshot/pantry.db`, re-fetches every
@@ -126,6 +126,34 @@ store responses, which keeps it around 0.5 MB.
 
 First-time setup: sign in to Streamlit Community Cloud with GitHub, choose
 **Create app**, pick this repo, branch `main` and main file `streamlit_app.py`.
+
+### Editing what belongs in a category
+
+Keyword matching lets through products that only contain the ingredient (tofu
+burgers) or share a word with it (quinoa shampoo). In edit mode you can hide a
+single product with its × button, or hide every product in a category whose
+name contains a word. Both are applied when the app shows the data, so they
+take effect at once and survive every price refresh.
+
+Locally, edits go to `data/pantry.db` and no password is needed. On the hosted
+app they go to a free [Supabase](https://supabase.com) project, because the
+hosted app's own disk is wiped on every restart. To set it up once:
+
+1. Create a Supabase project. In its **SQL Editor**, run the `SUPABASE_SETUP_SQL`
+   from `swiss_pantry/storage/curation.py`.
+2. From **Project Settings → API Keys**, copy the project URL and a **secret**
+   key (not the publishable/anon one).
+3. In Streamlit Community Cloud, open the app's **Settings → Secrets** and add:
+
+   ```toml
+   admin_password = "choose-one"
+
+   [supabase]
+   url = "https://<project>.supabase.co"
+   secret_key = "sb_secret_..."
+   ```
+
+Then open **Edit mode** in the sidebar and enter the password.
 
 ## Adding a product category
 
