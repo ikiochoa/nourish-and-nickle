@@ -163,12 +163,15 @@ HAS_INTERACTIVE_TABLE = _interactive_table is not None
 
 
 def interactive_table(*, columns: list[dict], rows: list[dict], default_pinned: list[str],
-                      product_column: str, editable: bool, key: str):
+                      product_column: str, card: dict, editable: bool, key: str):
     """Mount the interactive table. Returns the component result, whose
     `toggle_cart` / `hide` attributes hold a row id on the run after a click.
 
     `columns` are {"name", "kind"} with kind one of text, product, num, long,
     grade, link. Each row is {"id", "cells", "cheapest", "healthiest", "in_cart"}.
+    On narrow (phone) screens rows show as cards instead; `card` names the
+    columns a card shows up front: {"store", "grade", "price", "meta": [...]}.
+    Every other column goes in the details a tap on the card opens.
     """
     return _interactive_table(
         data={
@@ -176,6 +179,7 @@ def interactive_table(*, columns: list[dict], rows: list[dict], default_pinned: 
             "rows": rows,
             "default_pinned": default_pinned,
             "product_column": product_column,
+            "card": card,
             "editable": editable,
         },
         key=key,
