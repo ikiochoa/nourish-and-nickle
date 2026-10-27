@@ -55,7 +55,7 @@ else:
     curation = None
     needs_login = False
 
-UNIT_LABEL = {"g": "CHF/100g", "ml": "CHF/100ml", "roll": "CHF/roll"}
+UNIT_LABEL = {"g": "CHF/100g", "ml": "CHF/100ml", "roll": "CHF/roll", "piece": "CHF/piece"}
 NO_DATA = ui.NO_DATA
 
 # (display column, OFF nutriments key) - all already cached in off_raw, no

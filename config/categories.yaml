@@ -6,7 +6,7 @@
 # keywords_include: raw product name (lowercased) must contain at least one of these to count as a real match.
 # keywords_exclude: raw product name must NOT contain any of these (filters out ready-meals, unrelated hits, etc.).
 # off_search_term: fallback query against Open Food Facts when a store doesn't expose a barcode.
-# unit: "g", "ml", or "roll" - what price-per-unit is normalized to.
+# unit: "g", "ml", "roll" or "piece" - what price-per-unit is normalized to.
 # food: whether to run the Open Food Facts health-scoring step at all.
 # fresh_produce: whole/unprocessed fruit - skip the OFF lookup and assume a clean
 #                NOVA-1, zero-additive, zero-sat-fat profile rather than showing "unrated"
@@ -384,3 +384,72 @@
   off_category_tags: []
   unit: roll
   food: false
+
+- id: baking_powder
+  name: Baking powder
+  search_de: Backpulver
+  search_en: Baking Powder
+  keywords_include: [backpulver, "baking powder", "poudre à lever"]
+  keywords_exclude: [natron, "baking soda", backmischung, kuchen, cake, brot]
+  off_search_term: baking powder
+  off_category_tags: [baking-powder, raising-agents, leavening]
+  unit: g
+  food: true
+
+- id: skyr
+  name: Skyr
+  search_de: Skyr
+  search_en: Skyr
+  keywords_include: [skyr]
+  keywords_exclude: [drink, trink, glace, "ice cream", riegel, müsli, granola, dessert]
+  off_search_term: skyr
+  off_category_tags: [skyr, yogurt, yoghurt, fermented-milk, dairy]
+  unit: g
+  food: true
+
+- id: jam
+  name: Jam
+  search_de: Konfitüre
+  search_en: Jam
+  keywords_include: [konfitüre, confiture, " jam", "jam ", marmelade, fruchtaufstrich, "fruit spread"]
+  keywords_exclude: [joghurt, yogurt, biscuit, keks, guetzli, cookie, gipfeli, croissant, berliner, torte, cake, kuchen, riegel, tartelette]
+  off_search_term: jam
+  off_category_tags: [jams, marmalades, fruit-preserves, fruit-spreads, spreads]
+  unit: g
+  food: true
+
+# Priced per egg: pack sizes like "6 Stück" parse as pieces.
+- id: eggs
+  name: Eggs
+  search_de: Eier
+  search_en: Eggs
+  keywords_include: [eier, eggs, "egg "]
+  keywords_exclude: [nudeln, teigwaren, pasta, likör, liqueur, schoko, chocolate, kinder, salat, salad, mayonnaise, spätzli, nougat, ersatz, vegan]
+  off_search_term: eggs
+  off_category_tags: [eggs, chicken-eggs]
+  unit: piece
+  food: true
+
+# Swiss stores sell canned tomatoes as "Pelati", whole or chopped. Passata,
+# purée and paste are different products and are kept out.
+- id: canned_tomatoes
+  name: Canned tomatoes
+  search_de: Pelati
+  search_en: Pelati
+  keywords_include: [pelati, "gehackte tomaten", "tomaten gehackt", "chopped tomatoes", "peeled tomatoes", "geschälte tomaten", polpa]
+  keywords_exclude: [sauce, sugo, ketchup, suppe, soup, getrocknet, dried, passata, tomatenmark, purée, püree, konzentrat]
+  off_search_term: canned tomatoes
+  off_category_tags: [canned-tomatoes, peeled-tomatoes, chopped-tomatoes, tomatoes, canned-vegetables]
+  unit: g
+  food: true
+
+- id: canned_chickpeas
+  name: Canned chickpeas
+  search_de: Kichererbsen
+  search_en: Chickpeas
+  keywords_include: [kichererbsen, chickpea, "pois chiches", garbanzo]
+  keywords_exclude: [mehl, flour, hummus, snack, chips, curry, salat, salad, pasta, nudeln, falafel, geröstet, roasted]
+  off_search_term: chickpeas
+  off_category_tags: [chickpeas, canned-chickpeas, legumes, pulses]
+  unit: g
+  food: true
